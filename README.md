@@ -5,14 +5,6 @@
   <img src="public/images/nexora-header-banner.svg" width="100%" alt="Nexora CRM Animated Header Banner" />
 </a>
 
-<!-- Responsive Brand Logo (GitHub Dark / Light Adaptive via fragment hashes) -->
-<p align="center">
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM">
-    <img src="public/images/nexora-logo-dark.png#gh-dark-mode-only" alt="Nexora CRM Logo (Dark Mode)" height="105" />
-    <img src="public/images/nexora-logo-light.png#gh-light-mode-only" alt="Nexora CRM Logo (Light Mode)" height="105" />
-  </a>
-</p>
-
 <!-- Animated SVG Live Telemetry & Feature Status Ticker (Zero External Dependencies) -->
 <p align="center">
   <img src="public/images/nexora-animated-ticker.svg" width="100%" alt="Nexora Telemetry & Feature Ticker" />
