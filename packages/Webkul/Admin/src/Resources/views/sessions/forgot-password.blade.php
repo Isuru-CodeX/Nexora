@@ -11,17 +11,17 @@
             <div class="nexora-orb-delayed absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-[#D803B3]/20 blur-3xl dark:bg-[#D803B3]/15"></div>
         </div>
 
-        <div class="nexora-animate-in relative z-10 flex w-full max-w-[380px] flex-col items-center gap-6">
+        <div class="nexora-animate-in relative z-10 flex w-full max-w-[410px] flex-col items-center gap-6">
             <!-- Logo -->
             @if ($logo = core()->getConfigData('general.general.admin_logo.logo_image'))
                 <img
-                    class="h-12 w-auto object-contain"
+                    class="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
                     src="{{ Storage::url($logo) }}"
                     alt="{{ config('app.name') }}"
                 />
             @else
                 <img
-                    class="h-12 w-auto"
+                    class="h-12 w-auto transition-transform duration-300 hover:scale-105"
                     src="{{ request()->cookie('dark_mode') ? vite()->asset('images/dark-logo.svg') : vite()->asset('images/logo.svg') }}"
                     data-nexora-logo="forgot-password"
                     data-light-src="{{ vite()->asset('images/logo.svg') }}"
@@ -30,19 +30,19 @@
                 />
             @endif
 
-            <div class="nexora-scale-in box-shadow flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white/90 shadow-2xl backdrop-blur-xl dark:border-gray-800/80 dark:bg-gray-900/85">
+            <div class="nexora-scale-in box-shadow flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-gray-800/80 dark:bg-gray-900/90">
                 <div class="nexora-gradient-bar h-1 w-full"></div>
                 {!! view_render_event('admin.sessions.forgor_password.form_controls.before') !!}
 
                 <!-- Forget Password Form -->
                 <x-admin::form :action="route('admin.forgot_password.store')">
-                    <div class="p-4">
+                    <div class="p-5">
                         <p class="text-xl font-bold text-gray-800 dark:text-white">
                             @lang('admin::app.users.forget-password.create.title')
                         </p>
                     </div>
 
-                    <div class="border-y p-4 dark:border-gray-800">
+                    <div class="border-y p-5 dark:border-gray-800">
                         <!-- Registered Email -->
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required">
@@ -51,7 +51,7 @@
 
                             <x-admin::form.control-group.control
                                 type="email"
-                                class="w-[254px] max-w-full"
+                                class="w-full"
                                 id="email"
                                 name="email"
                                 rules="required|email"
@@ -64,10 +64,10 @@
                         </x-admin::form.control-group>
                     </div>
 
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-5">
                         <!-- Back to Sign In link -->
                         <a
-                            class="cursor-pointer text-xs font-semibold leading-6 text-brandColor"
+                            class="cursor-pointer text-xs font-semibold leading-6 text-brandColor transition-colors hover:opacity-85"
                             href="{{ route('admin.session.create') }}"
                         >
                             @lang('admin::app.users.forget-password.create.sign-in-link')
@@ -75,7 +75,8 @@
 
                         <!-- Form Submit Button -->
                         <button
-                            class="primary-button">
+                            class="primary-button px-5 py-2"
+                        >
                             @lang('admin::app.users.forget-password.create.submit-btn')
                         </button>
                     </div>

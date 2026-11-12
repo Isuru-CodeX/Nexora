@@ -92,12 +92,33 @@
                 }
             }
 
+            function hideNexoraPreloader() {
+                var loader = document.getElementById('nexora-preloader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    loader.style.pointerEvents = 'none';
+                    setTimeout(function () {
+                        if (loader && loader.parentNode) {
+                            loader.parentNode.removeChild(loader);
+                        }
+                    }, 450);
+                }
+            }
+
+            window.__hideNexoraPreloader = hideNexoraPreloader;
+
             document.addEventListener('DOMContentLoaded', function () {
                 window.__nexoraTheme.apply(root.classList.contains('dark'), false);
                 requestAnimationFrame(function () {
                     root.classList.add('nexora-theme-ready');
                 });
             });
+
+            window.addEventListener('load', function () {
+                setTimeout(hideNexoraPreloader, 60);
+            });
+
+            setTimeout(hideNexoraPreloader, 2600);
         })();
     </script>
 
@@ -150,6 +171,41 @@
 
 <body class="font-inter bg-[#F4F7FB] text-gray-800 dark:bg-[#070B14] dark:text-slate-100">
     {!! view_render_event('admin.layout.body.before') !!}
+
+    <!-- Nexora Global Top Loader Bar -->
+    <div
+        id="nexora-top-loader"
+        class="pointer-events-none fixed top-0 left-0 right-0 z-[1000000] h-[3px] w-0 opacity-0"
+    ></div>
+
+    <!-- Nexora Page Preloader -->
+    <div
+        id="nexora-preloader"
+        class="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-white transition-opacity duration-400 ease-out dark:bg-[#070B14]"
+    >
+        <div class="pointer-events-none absolute h-72 w-72 rounded-full bg-gradient-to-tr from-[#01C7F4]/20 via-[#5A4DB9]/25 to-[#D803B3]/20 blur-3xl dark:from-[#01C7F4]/15 dark:to-[#D803B3]/15"></div>
+
+        <div class="relative flex flex-col items-center gap-5">
+            <div class="relative flex h-20 w-20 items-center justify-center">
+                <div class="absolute inset-0 nexora-spin-ring rounded-full border-2 border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3] [animation-duration:1.1s]"></div>
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] opacity-25 blur-sm"></div>
+                <img
+                    src="{{ asset('images/nexora-icon.png') }}"
+                    alt="{{ config('app.name', 'Nexora') }}"
+                    class="h-11 w-11 object-contain drop-shadow-md"
+                />
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-xs font-bold tracking-widest text-gray-900 uppercase dark:text-white">
+                    Nexora<span class="bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] bg-clip-text text-transparent">.CRM</span>
+                </span>
+                <div class="h-1 w-28 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
+                    <div class="nexora-preloader-bar h-full w-full rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="app" class="relative min-h-screen overflow-hidden">
         <!-- Floating Nexora Theme Switcher -->

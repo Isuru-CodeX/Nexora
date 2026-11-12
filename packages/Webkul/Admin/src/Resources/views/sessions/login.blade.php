@@ -12,7 +12,7 @@
             <div class="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#5A4DB9]/15 blur-3xl"></div>
         </div>
 
-        <div class="nexora-animate-in relative z-10 flex w-full max-w-[380px] flex-col items-center gap-6">
+        <div class="nexora-animate-in relative z-10 flex w-full max-w-[410px] flex-col items-center gap-6">
             <!-- Logo -->
             @if ($logo = core()->getConfigData('general.general.admin_logo.logo_image'))
                 <img
@@ -31,17 +31,17 @@
                 />
             @endif
 
-            <div class="nexora-scale-in box-shadow flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white/90 shadow-2xl backdrop-blur-xl dark:border-gray-800/80 dark:bg-gray-900/85">
+            <div class="nexora-scale-in box-shadow flex w-full flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white/95 shadow-2xl backdrop-blur-xl dark:border-gray-800/80 dark:bg-gray-900/90">
                 <div class="nexora-gradient-bar h-1 w-full"></div>
                 {!! view_render_event('admin.sessions.login.form_controls.before') !!}
 
                 <!-- Login Form -->
                 <x-admin::form :action="route('admin.session.store')">
-                    <p class="p-4 text-xl font-bold text-gray-800 dark:text-white">
+                    <p class="p-5 text-xl font-bold text-gray-800 dark:text-white">
                         @lang('admin::app.users.login.title')
                     </p>
 
-                    <div class="border-y p-4 dark:border-gray-800">
+                    <div class="border-y p-5 dark:border-gray-800">
                         <!-- Email -->
                         <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required">
@@ -50,7 +50,7 @@
 
                             <x-admin::form.control-group.control
                                 type="email"
-                                class="w-[254px] max-w-full"
+                                class="w-full"
                                 id="email"
                                 name="email"
                                 rules="required|email"
@@ -69,7 +69,7 @@
 
                             <x-admin::form.control-group.control
                                 type="password"
-                                class="w-[254px] max-w-full ltr:pr-10 rtl:pl-10"
+                                class="w-full ltr:pr-10 rtl:pl-10"
                                 id="password"
                                 name="password"
                                 rules="required|min:6"
@@ -90,10 +90,10 @@
                         </x-admin::form.control-group>
                     </div>
 
-                    <div class="flex items-center justify-between p-4">
+                    <div class="flex items-center justify-between p-5">
                         <!-- Forgot Password Link -->
                         <a
-                            class="cursor-pointer text-xs font-semibold leading-6 text-brandColor"
+                            class="cursor-pointer text-xs font-semibold leading-6 text-brandColor transition-colors hover:opacity-85"
                             href="{{ route('admin.forgot_password.create') }}"
                         >
                             @lang('admin::app.users.login.forget-password-link')
@@ -101,7 +101,7 @@
 
                         <!-- Submit Button -->
                         <button
-                            class="primary-button"
+                            class="primary-button px-5 py-2"
                             aria-label="{{ trans('admin::app.users.login.submit-btn')}}"
                         >
                             @lang('admin::app.users.login.submit-btn')

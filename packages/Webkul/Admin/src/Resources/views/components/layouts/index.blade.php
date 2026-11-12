@@ -116,12 +116,34 @@
                 }
             }
 
+            function hideNexoraPreloader() {
+                var loader = document.getElementById('nexora-preloader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    loader.style.pointerEvents = 'none';
+                    setTimeout(function () {
+                        if (loader && loader.parentNode) {
+                            loader.parentNode.removeChild(loader);
+                        }
+                    }, 450);
+                }
+            }
+
+            window.__hideNexoraPreloader = hideNexoraPreloader;
+
             document.addEventListener('DOMContentLoaded', function () {
                 window.__nexoraTheme.apply(root.classList.contains('dark'), false);
                 requestAnimationFrame(function () {
                     root.classList.add('nexora-theme-ready');
                 });
             });
+
+            window.addEventListener('load', function () {
+                setTimeout(hideNexoraPreloader, 60);
+            });
+
+            // Safety timeout so preloader never blocks page
+            setTimeout(hideNexoraPreloader, 2600);
         })();
     </script>
 
@@ -170,10 +192,48 @@
 <body class="h-full font-inter bg-[#F4F7FB] dark:bg-[#070B14]">
     {!! view_render_event('admin.layout.body.before') !!}
 
+    <!-- Nexora Global Top Loader Bar -->
+    <div
+        id="nexora-top-loader"
+        class="pointer-events-none fixed top-0 left-0 right-0 z-[1000000] h-[3px] w-0 opacity-0"
+    ></div>
+
+    <!-- Nexora Page Preloader -->
+    <div
+        id="nexora-preloader"
+        class="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-white transition-opacity duration-400 ease-out dark:bg-[#070B14]"
+    >
+        <div class="pointer-events-none absolute h-72 w-72 rounded-full bg-gradient-to-tr from-[#01C7F4]/20 via-[#5A4DB9]/25 to-[#D803B3]/20 blur-3xl dark:from-[#01C7F4]/15 dark:to-[#D803B3]/15"></div>
+
+        <div class="relative flex flex-col items-center gap-5">
+            <div class="relative flex h-20 w-20 items-center justify-center">
+                <div class="absolute inset-0 nexora-spin-ring rounded-full border-2 border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3] [animation-duration:1.1s]"></div>
+                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] opacity-25 blur-sm"></div>
+                <img
+                    src="{{ asset('images/nexora-icon.png') }}"
+                    alt="{{ config('app.name', 'Nexora') }}"
+                    class="h-11 w-11 object-contain drop-shadow-md"
+                />
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-xs font-bold tracking-widest text-gray-900 uppercase dark:text-white">
+                    Nexora<span class="bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] bg-clip-text text-transparent">.CRM</span>
+                </span>
+                <div class="h-1 w-28 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
+                    <div class="nexora-preloader-bar h-full w-full rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div
         id="app"
         class="h-full"
     >
+        <!-- Action Loader Component -->
+        <v-nexora-action-loader></v-nexora-action-loader>
+
         <!-- Flash Message Blade Component -->
         <x-admin::flash-group />
 
@@ -203,7 +263,7 @@
 
             <div class="flex min-h-[calc(100vh-62px)] max-w-full flex-1 flex-col bg-[#F4F7FB] pt-3 transition-all duration-300 dark:bg-transparent">
                 <!-- Page Content Blade Component -->
-                <div class="nexora-animate-in px-4 {{ $showPoweredBy ? 'pb-[72px]' : 'pb-4' }} transition-all duration-300 lg:ltr:pl-[215px] lg:group-[.sidebar-collapsed]/container:ltr:pl-[85px] lg:rtl:pr-[215px] lg:group-[.sidebar-collapsed]/container:rtl:pr-[85px]">
+                <div class="nexora-animate-in px-3 py-2 sm:px-4 sm:py-3 lg:px-6 {{ $showPoweredBy ? 'pb-[72px]' : 'pb-4' }} transition-all duration-300 lg:ltr:pl-[215px] lg:group-[.sidebar-collapsed]/container:ltr:pl-[85px] lg:rtl:pr-[215px] lg:group-[.sidebar-collapsed]/container:rtl:pr-[85px]">
                     {{ $slot }}
                 </div>
 
@@ -222,6 +282,63 @@
     </div>
 
     {!! view_render_event('admin.layout.body.after') !!}
+
+    <script
+        type="text/x-template"
+        id="v-nexora-action-loader-template"
+    >
+        <transition
+            enter-active-class="transition-opacity duration-200 ease-out"
+            enter-from-class="opacity-0"
+            enter-to-class="opacity-100"
+            leave-active-class="transition-opacity duration-200 ease-in"
+            leave-from-class="opacity-100"
+            leave-to-class="opacity-0"
+        >
+            <div
+                v-if="isVisible"
+                class="fixed inset-0 z-[100000] flex items-center justify-center bg-gray-950/60 backdrop-blur-md"
+            >
+                <div class="nexora-scale-in flex flex-col items-center gap-3.5 rounded-2xl border border-gray-200/80 bg-white/95 px-7 py-5 shadow-2xl dark:border-gray-800 dark:bg-gray-900/95">
+                    <div class="relative flex h-12 w-12 items-center justify-center">
+                        <div class="absolute inset-0 nexora-spin-ring rounded-full border-2 border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3] [animation-duration:0.9s]"></div>
+                        <img
+                            src="{{ asset('images/nexora-icon.png') }}"
+                            alt="Nexora"
+                            class="h-6 w-6 object-contain"
+                        />
+                    </div>
+                    <p class="text-xs font-semibold tracking-wide text-gray-700 dark:text-gray-200">
+                        @{{ message }}
+                    </p>
+                </div>
+            </div>
+        </transition>
+    </script>
+
+    <script type="module">
+        app.component('v-nexora-action-loader', {
+            template: '#v-nexora-action-loader-template',
+
+            data() {
+                return {
+                    isVisible: false,
+                    message: 'Loading...',
+                };
+            },
+
+            mounted() {
+                this.$emitter?.on('show-action-loader', (msg) => {
+                    this.message = msg || 'Processing...';
+                    this.isVisible = true;
+                });
+
+                this.$emitter?.on('hide-action-loader', () => {
+                    this.isVisible = false;
+                });
+            },
+        });
+    </script>
 
     @stack('scripts')
 
