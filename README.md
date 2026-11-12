@@ -724,7 +724,16 @@ npm run test:js
 
 ## 🛡️ Security Vulnerabilities
 
-If you discover any security vulnerability within Nexora, please review [SECURITY.md](SECURITY.md) and report it privately via email rather than posting to public issue trackers.
+If you discover any security vulnerability within Nexora, please review our comprehensive [Security Policy](SECURITY.md) and report it privately via our confidential reporting channels rather than posting to public issue trackers.
+
+---
+
+<!-- Animated Gradient Divider -->
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="divider" />
+
+## 🤝 Community & Code of Conduct
+
+Nexora CRM is dedicated to fostering an open, welcoming, diverse, and harassment-free community for all contributors and maintainers. Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before participating in discussions, reporting bugs, or submitting pull requests.
 
 ---
 
@@ -763,7 +772,7 @@ If you discover any security vulnerability within Nexora, please review [SECURIT
 
 ## 📄 License
 
-**Nexora (NoxusCRM)** is open-source software distributed under the [MIT License](LICENSE).  
+**Nexora (NoxusCRM)** is open-source software distributed under the [MIT License](LICENSE.md). For commercial use rights, modification guidelines, and enterprise adoption policies, see the comprehensive [LICENSE.md](LICENSE.md) documentation.  
 Copyright &copy; 2026 **Isuru Rathnayaka (Nexora CRM)**. All rights reserved.
 
 <div align="center">
