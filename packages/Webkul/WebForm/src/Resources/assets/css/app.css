@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------- new css -------------------------------- */
+
+@font-face {
+    font-family: "icomoon";
+    src: url("../fonts/icomoon.woff?w2trdd") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: "icomoon", sans-serif !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+    .icon-cross-large:before {
+        content: "\e91c";
+    }
+
+    [dir="rtl"] .stage::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        width: 24px;
+        height: 24px;
+        z-index: 1;
+        border-radius: 0 0 0 25px;
+        transform: translateY(-50%) rotate(225deg);
+        border-right: 4px solid #f3f4f6;
+        border-top: 4px solid #f3f4f6;
+    }
+
+    [dir="rtl"] .stage::after {
+        display: none;
+    }
+
+    .primary-button {
+        @apply bg-brandColor border border-transparent cursor-pointer flex font-semibold gap-x-1 items-center place-content-center px-3.5 py-1.5 rounded-lg text-white transition-all duration-300;
+        background-image: linear-gradient(135deg, #01C7F4 0%, #5A4DB9 52%, #D803B3 100%);
+        background-size: 170% 170%;
+        box-shadow: 0 6px 18px -6px rgba(90, 77, 185, 0.55);
+    }
+
+    .primary-button:hover {
+        background-position: 100% 50%;
+        transform: translateY(-1px);
+    }
+
+    .secondary-button {
+        @apply flex cursor-pointer place-content-center items-center gap-x-1 whitespace-nowrap rounded-lg border-2 border-brandColor bg-white px-3 py-1.5 font-semibold text-brandColor transition-all hover:bg-[#5A4DB9]/10 focus:bg-[#5A4DB9]/10 dark:border-indigo-400/50 dark:bg-gray-900 dark:text-indigo-200 dark:hover:bg-indigo-500/15;
+    }
+
+    .transparent-button {
+        @apply flex cursor-pointer appearance-none place-content-center items-center gap-x-1 whitespace-nowrap rounded-lg border-2 border-transparent px-3 py-1.5 font-semibold text-gray-600 transition-all marker:shadow hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/80;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #2590D6 0%, #5A4DB9 55%, #9E24B7 100%);
+        border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #01C7F4 0%, #5A4DB9 50%, #D803B3 100%);
+    }
+
+    html.dark ::-webkit-scrollbar-track {
+        background: #0b1120;
+    }
+
+    /* Firefox */
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #5A4DB9 #f1f5f9;
+    }
+
+    html.dark * {
+        scrollbar-color: #5A4DB9 #0b1120;
+    }
+
+    ::selection {
+        background-color: rgba(90, 77, 185, 0.24);
+    }
+
+    body {
+        @apply bg-[#F4F7FB] text-sm text-gray-800 antialiased dark:bg-[#070B14] dark:text-slate-100;
+    }
+
+    button:disabled {
+        @apply cursor-not-allowed opacity-50;
+    }
+
+    button:disabled:hover {
+        @apply cursor-not-allowed opacity-50;
+    }
+
+    .draggable-ghost {
+        opacity: 0.5;
+        background: #e0e7ff;
+    }
+
+    html.dark [class^="icon-"],
+    html.dark [class*=" icon-"] {
+        color: #d1d5db;
+    }
+
+    p {
+        @apply text-[14px] !leading-[17px];
+    }
+
+    input,
+    textarea,
+    select {
+        @apply outline-none;
+    }
+
+    .required:after {
+        @apply content-['*'];
+    }
+}
