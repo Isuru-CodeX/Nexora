@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 160" width="100%" height="auto">
+  <defs>
+    <!-- Brand Gradient -->
+    <linearGradient id="footerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#01C7F4">
+        <animate attributeName="stop-color" values="#01C7F4;#2590D6;#5A4DB9;#9E24B7;#D803B3;#01C7F4" dur="10s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="25%" stop-color="#2590D6">
+        <animate attributeName="stop-color" values="#2590D6;#5A4DB9;#9E24B7;#D803B3;#01C7F4;#2590D6" dur="10s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="50%" stop-color="#5A4DB9">
+        <animate attributeName="stop-color" values="#5A4DB9;#9E24B7;#D803B3;#01C7F4;#2590D6;#5A4DB9" dur="10s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="75%" stop-color="#9E24B7">
+        <animate attributeName="stop-color" values="#9E24B7;#D803B3;#01C7F4;#2590D6;#5A4DB9;#9E24B7" dur="10s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="100%" stop-color="#D803B3">
+        <animate attributeName="stop-color" values="#D803B3;#01C7F4;#2590D6;#5A4DB9;#9E24B7;#D803B3" dur="10s" repeatCount="indefinite"/>
+      </stop>
+    </linearGradient>
+
+    <!-- Secondary Wave Gradient -->
+    <linearGradient id="footerWave2" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#D803B3" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#5A4DB9" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#01C7F4" stop-opacity="0.35"/>
+    </linearGradient>
+
+    <!-- Glowing Filter -->
+    <filter id="footerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <style>
+      @keyframes waveDrift1 {
+        0% { transform: translateX(0); }
+        50% { transform: translateX(-35px); }
+        100% { transform: translateX(0); }
+      }
+      @keyframes waveDrift2 {
+        0% { transform: translateX(0); }
+        50% { transform: translateX(35px); }
+        100% { transform: translateX(0); }
+      }
+      @keyframes pulseNode {
+        0%, 100% { opacity: 0.4; transform: scale(0.85); }
+        50% { opacity: 1; transform: scale(1.15); }
+      }
+      .wave-1 {
+        animation: waveDrift1 8s ease-in-out infinite;
+      }
+      .wave-2 {
+        animation: waveDrift2 11s ease-in-out infinite;
+      }
+      .pulse-dot {
+        animation: pulseNode 3s ease-in-out infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- Deep Background Layer -->
+  <rect width="1200" height="160" fill="transparent"/>
+
+  <!-- Back Wave (Translucent Multi-Stop) -->
+  <g class="wave-2">
+    <path d="M0,70 C240,110 420,30 680,85 C920,135 1060,45 1240,80 L1240,160 L0,160 Z" fill="url(#footerWave2)" />
+  </g>
+
+  <!-- Front Dynamic Gradient Wave -->
+  <g class="wave-1">
+    <path d="M-30,95 C180,45 380,125 640,65 C900,15 1050,115 1230,70 L1230,160 L-30,160 Z" fill="url(#footerGrad)" opacity="0.88" filter="url(#footerGlow)" />
+  </g>
+
+  <!-- Decorative Constellation Points -->
+  <g class="pulse-dot" style="transform-origin: 220px 80px;">
+    <circle cx="220" cy="80" r="3.5" fill="#01C7F4" opacity="0.9"/>
+  </g>
+  <g class="pulse-dot" style="animation-delay: 1s; transform-origin: 640px 65px;">
+    <circle cx="640" cy="65" r="4" fill="#ffffff" opacity="0.95"/>
+  </g>
+  <g class="pulse-dot" style="animation-delay: 1.8s; transform-origin: 980px 75px;">
+    <circle cx="980" cy="75" r="3.5" fill="#D803B3" opacity="0.9"/>
+  </g>
+
+  <!-- Centered Footer Branding Text -->
+  <text x="600" y="132" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" letter-spacing="3.5">
+    NEXORA CRM &bull; NEXT-GENERATION ENTERPRISE PLATFORM
+  </text>
+  <text x="600" y="148" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="rgba(255,255,255,0.7)" letter-spacing="1.5">
+    DESIGNED &amp; DEVELOPED BY ISURU RATHNAYAKA &bull; MIT LICENSED
+  </text>
+</svg>

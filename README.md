@@ -1,28 +1,24 @@
 <div align="center">
 
-<!-- Animated Header Wave Banner (Styled with Nexora Logo Gradient: Cyan #01C7F4 → Blue #2590D6 → Indigo #5A4DB9 → Violet #9E24B7 → Magenta #D803B3) -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:01C7F4,20:2590D6,45:5A4DB9,70:9E24B7,90:D803B3,100:01C7F4&height=280&section=header&text=Nexora%20CRM&fontSize=72&fontColor=ffffff&animation=twinkling&fontAlignY=38&desc=%E2%9C%A8%20Intelligent%2C%20Modular%20%26%20Fully%20Responsive%20Open-Source%20CRM%20Platform&descAlignY=58&descSize=18" width="100%" alt="Nexora CRM Header Banner" />
-
-<!-- Responsive Logo -->
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/images/nexora-logo-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="public/images/nexora-logo-light.png">
-    <img alt="Nexora CRM Logo" height="115" src="public/images/nexora-logo-light.png">
-  </picture>
-</p>
-
-<!-- Dynamic Animated Typing Subtitles (Cyan #01C7F4 Accent) -->
-<a href="https://github.com/Isuru-CodeX/NoxusCRM">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=2600&pause=900&color=01C7F4&center=true&vCenter=true&width=960&lines=%E2%9A%A1+Built+with+Laravel+12+(PHP+8.3+-+8.5)%2C+Vue.js+3.4+%26+Tailwind+CSS;%F0%9F%8C%93+Zero-Flash+System-Aware+Dark%2FLight+Mode+with+Cookie+Persistence;%E2%8F%B3+Branded+Orbital+Preloader+%26+Glowing+Top+Route+Streaming+Bar;%F0%9F%93%8A+Interactive+Kanban+Sales+Funnel+with+Drag-%26-Drop+Deal+Stages;%F0%9F%93%B1+100%25+Mobile-Adaptive+Drawer+%26+Glassmorphic+Navigation+Header;%E2%9C%89%EF%B8%8F+Two-Way+IMAP%2FSMTP+Email+Sync+%26+Dynamic+PDF+Quote+Builder;%F0%9F%9B%A1%EF%B8%8F+Granular+Role-Based+Access+Control+(RBAC)+%26+Automations" alt="Typing animation" />
+<!-- Animated Header Interactive Banner (Self-contained vector SVG styled with Nexora Brand Gradient: Cyan #01C7F4 → Blue #2590D6 → Indigo #5A4DB9 → Violet #9E24B7 → Magenta #D803B3) -->
+<a href="#-key-features--uiux-innovations">
+  <img src="public/images/nexora-header-banner.svg" width="100%" alt="Nexora CRM Animated Header Banner" />
 </a>
 
+<!-- Responsive Brand Logo (GitHub Dark / Light Adaptive via fragment hashes) -->
+<p align="center">
+  <a href="https://github.com/Isuru-CodeX/NoxusCRM">
+    <img src="public/images/nexora-logo-dark.png#gh-dark-mode-only" alt="Nexora CRM Logo (Dark Mode)" height="105" />
+    <img src="public/images/nexora-logo-light.png#gh-light-mode-only" alt="Nexora CRM Logo (Light Mode)" height="105" />
+  </a>
+</p>
+
+<!-- Animated SVG Live Telemetry & Feature Status Ticker (Zero External Dependencies) -->
+<p align="center">
+  <img src="public/images/nexora-animated-ticker.svg" width="100%" alt="Nexora Telemetry & Feature Ticker" />
+</p>
+
 <br/>
-
-<!-- Animated Telemetry Ticker (Magenta #D803B3 Accent) -->
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=700&size=13&duration=3000&pause=1000&color=D803B3&center=true&vCenter=true&width=820&lines=%E2%97%86+SYSTEM-AWARE+THEME+ENGINE+ONLINE+%E2%97%86+ZERO-WHITE-FLASH+(FOUC)+VERIFIED;%E2%97%86+TOP+STREAMING+LOADER+READY+(%23nexora-top-loader)+%E2%97%86+BLUR+ACTION+OVERLAYS;%E2%97%86+20+MODULAR+ENTERPRISE+CRM+PACKAGES+ACTIVE+%E2%97%86+100%25+MOBILE+READY;%E2%97%86+VUE+3.4+REACTIVE+KANBAN+PIPELINE+%E2%97%86+DYNAMIC+PDF+QUOTE+ENGINE" alt="Telemetry ticker" />
-
-<br/><br/>
 
 <!-- Core Technology Stack Badges (Matching Logo Colorway) -->
 <p align="center">
@@ -780,7 +776,9 @@ Copyright &copy; 2026 **Isuru Rathnayaka (Nexora CRM)**. All rights reserved.
 
 <div align="center">
 
-<!-- Animated Footer Wave Banner (Matching Nexora Logo Colorway: Cyan #01C7F4 → Blue #2590D6 → Indigo #5A4DB9 → Violet #9E24B7 → Magenta #D803B3) -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:01C7F4,25:2590D6,50:5A4DB9,75:9E24B7,100:D803B3&height=150&section=footer" width="100%" alt="Nexora CRM Footer Banner" />
+<!-- Animated Footer Interactive Banner (Self-contained vector SVG with Nexora Brand Gradient: Cyan #01C7F4 → Blue #2590D6 → Indigo #5A4DB9 → Violet #9E24B7 → Magenta #D803B3) -->
+<a href="#-overview">
+  <img src="public/images/nexora-footer-banner.svg" width="100%" alt="Nexora CRM Animated Footer Banner" />
+</a>
 
 </div>
