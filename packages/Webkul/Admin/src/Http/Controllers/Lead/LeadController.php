@@ -26,6 +26,7 @@ use Webkul\Lead\Repositories\LeadRepository;
 use Webkul\Lead\Repositories\PipelineRepository;
 use Webkul\Lead\Repositories\ProductRepository;
 use Webkul\Lead\Repositories\SourceRepository;
+use Webkul\Lead\Repositories\StageChecklistCompletionRepository;
 use Webkul\Lead\Repositories\StageRepository;
 use Webkul\Lead\Repositories\TypeRepository;
 use Webkul\Lead\Services\MagicAIService;
@@ -350,24 +351,96 @@ class LeadController extends Controller
             ->where('id', request()->input('lead_pipeline_stage_id'))
             ->firstOrFail();
 
+        // Enforce required stage checklists before advancing if enforce_checklists flag is present
+        if (
+            $lead->lead_pipeline_stage_id != $stage->id
+            && request()->boolean('enforce_checklists')
+            && ! request()->boolean('bypass_checklists')
+            && $lead->hasPendingRequiredChecklists()
+        ) {
+            return response()->json([
+                'error' => 'stage_checklists_required',
+                'message' => 'Required stage checklist items must be completed before advancing.',
+                'checklists_summary' => $lead->checklists_summary,
+            ], 422);
+        }
+
         Event::dispatch('lead.update.before', $id);
 
         $payload = request()->merge([
             'entity_type' => 'leads',
             'lead_pipeline_stage_id' => $stage->id,
+            'stage_updated_at' => Carbon::now(),
         ])->only([
             'closed_at',
             'lost_reason',
             'lead_pipeline_stage_id',
+            'stage_updated_at',
             'entity_type',
         ]);
 
-        $lead = $this->leadRepository->update($payload, $id, ['lead_pipeline_stage_id']);
+        $lead = $this->leadRepository->update($payload, $id, ['lead_pipeline_stage_id', 'stage_updated_at']);
 
         Event::dispatch('lead.update.after', $lead);
 
         return response()->json([
             'message' => trans('admin::app.leads.update-success'),
+            'lead' => (new LeadResource($lead))->jsonSerialize(),
+        ]);
+    }
+
+    /**
+     * Toggle a checklist item for a specific lead.
+     */
+    public function toggleChecklist(int $id, int $checklistId): JsonResponse
+    {
+        $lead = $this->leadRepository->findOrFail($id);
+
+        $this->preventUnauthorizedAccess($lead->user_id);
+
+        $completionRepo = app(StageChecklistCompletionRepository::class);
+        $completion = $completionRepo->toggle($id, $checklistId);
+
+        $lead->refresh();
+
+        return response()->json([
+            'message' => 'Checklist item updated successfully.',
+            'completion' => $completion,
+            'checklists_summary' => $lead->checklists_summary,
+        ]);
+    }
+
+    /**
+     * Get checklists and completion status for a specific lead.
+     */
+    public function getChecklists(int $id): JsonResponse
+    {
+        $lead = $this->leadRepository->findOrFail($id);
+
+        $this->preventUnauthorizedAccess($lead->user_id);
+
+        $checklists = $lead->stage ? $lead->stage->checklists : collect();
+        $completedMap = $lead->checklistCompletions
+            ->where('is_completed', true)
+            ->pluck('is_completed', 'lead_stage_checklist_id')
+            ->toArray();
+
+        $items = $checklists->map(function ($item) use ($completedMap) {
+            return [
+                'id' => $item->id,
+                'name' => $item->name,
+                'description' => $item->description,
+                'is_required' => (bool) $item->is_required,
+                'sort_order' => (int) $item->sort_order,
+                'is_completed' => isset($completedMap[$item->id]) && $completedMap[$item->id],
+            ];
+        });
+
+        return response()->json([
+            'stage_id' => $lead->lead_pipeline_stage_id,
+            'stage_name' => $lead->stage?->name,
+            'checklists' => $items,
+            'checklists_summary' => $lead->checklists_summary,
         ]);
     }
 

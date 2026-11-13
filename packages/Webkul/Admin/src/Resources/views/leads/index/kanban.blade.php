@@ -124,42 +124,60 @@
                                 {!! view_render_event('admin.leads.index.kanban.content.stage.body.card.before') !!}
 
                                 <a
-                                    class="lead-item flex cursor-pointer flex-col gap-5 rounded-lg border border-gray-300 shadow-xl shadow-slate-200 bg-gray-100 p-2 dark:border-gray-400 dark:bg-gray-400"
+                                    class="lead-item flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 shadow-sm bg-gray-100 p-2.5 transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                                    :class="{
+                                        '!border-rose-500 !bg-rose-50/30 shadow-rose-200/40 dark:!border-rose-500/80 dark:!bg-rose-950/20': element.rotten_days > 0,
+                                    }"
                                     :href="'{{ route('admin.leads.view', 'replaceId') }}'.replace('replaceId', element.id)"
                                 >
                                     {!! view_render_event('admin.leads.index.kanban.content.stage.body.card.header.before') !!}
 
                                     <!-- Header -->
-                                    <div class="flex items-start justify-between">
+                                    <div class="flex items-start justify-between gap-1">
                                         <div
-                                            class="flex items-center gap-1"
+                                            class="flex items-center gap-1.5 min-w-0"
                                             v-if="cardFields.contactPerson"
                                         >
                                             <x-admin::avatar ::name="element.person ? element.person.name : 'Unknown'" />
 
-                                            <div class="flex flex-col gap-0.5">
-                                                <span class="text-xs font-medium">
+                                            <div class="flex flex-col gap-0.5 truncate">
+                                                <span class="text-xs font-medium truncate dark:text-gray-200">
                                                     @{{ element.person ? element.person.name : 'Unknown' }}
                                                 </span>
 
-                                                <span class="text-[10px] leading-normal">
+                                                <span class="text-[10px] leading-normal text-gray-500 dark:text-gray-400 truncate">
                                                     @{{ element.person && element.person.organization ? element.person.organization.name : '' }}
                                                 </span>
                                             </div>
                                         </div>
 
-                                        <div
-                                            class="group relative"
-                                            v-if="cardFields.rottenDays && element.rotten_days > 0"
-                                        >
-                                            <span class="icon-rotten cursor-default text-xl text-rose-600"></span>
+                                        <!-- Stage Stagnation & Rotten Indicators -->
+                                        <div class="flex items-center gap-1 shrink-0">
+                                            <span
+                                                class="flex items-center gap-0.5 rounded bg-gray-200/80 px-1.5 py-0.5 text-[10px] font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                                                :title="'Sitting in this stage for ' + (element.days_in_stage || 0) + ' days'"
+                                                v-if="element.days_in_stage !== undefined"
+                                            >
+                                                <span class="icon-clock text-[9px]"></span>
+                                                @{{ element.days_in_stage }}d
+                                            </span>
 
-                                            <div class="absolute -top-1 right-7 hidden w-max flex-col items-center group-hover:flex">
-                                                <span class="whitespace-no-wrap relative rounded-md bg-black px-4 py-2 text-xs leading-none text-white shadow-lg">
-                                                    @{{ "@lang('admin::app.leads.index.kanban.rotten-days', ['days' => 'replaceDays'])".replace('replaceDays', element.rotten_days) }}
-                                                </span>
+                                            <div
+                                                class="group relative"
+                                                v-if="cardFields.rottenDays && element.rotten_days > 0"
+                                            >
+                                                <div class="flex items-center gap-0.5 rounded bg-rose-100 px-1.5 py-0.5 text-[10px] font-bold text-rose-700 dark:bg-rose-950 dark:text-rose-300 animate-pulse">
+                                                    <span class="icon-rotten text-sm text-rose-600 dark:text-rose-400"></span>
+                                                    <span>@{{ element.rotten_days }}d</span>
+                                                </div>
 
-                                                <div class="absolute -right-1 top-2 h-3 w-3 rotate-45 bg-black"></div>
+                                                <div class="absolute -top-1 right-7 hidden w-max flex-col items-center group-hover:flex z-50">
+                                                    <span class="whitespace-no-wrap relative rounded-md bg-rose-700 px-3 py-1.5 text-xs font-medium leading-none text-white shadow-xl">
+                                                        @{{ "@lang('admin::app.leads.index.kanban.rotten-days', ['days' => 'replaceDays'])".replace('replaceDays', element.rotten_days) }}
+                                                    </span>
+
+                                                    <div class="absolute -right-1 top-2 h-3 w-3 rotate-45 bg-rose-700"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -224,6 +242,36 @@
                                                 {!! view_render_event('admin.leads.index.kanban.content.stage.body.card.tag.after') !!}
                                             </template>
                                         </template>
+                                    </div>
+
+                                    <!-- Stage Playbook Checklist Indicator -->
+                                    <div
+                                        class="flex items-center justify-between rounded-md border px-2 py-1 text-[11px] font-medium transition-all"
+                                        :class="{
+                                            'border-emerald-300 bg-emerald-50/70 text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300': element.checklists_summary && element.checklists_summary.can_advance,
+                                            'border-amber-300 bg-amber-50/70 text-amber-800 dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-300': element.checklists_summary && ! element.checklists_summary.can_advance,
+                                        }"
+                                        v-if="(cardFields.stageChecklist !== false) && element.checklists_summary && element.checklists_summary.total > 0"
+                                        @click.prevent.stop="openChecklistModal(element)"
+                                        title="Click to view and check off stage playbook tasks"
+                                    >
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="icon-checkbox-select text-xs"></span>
+                                            <span>Playbook: @{{ element.checklists_summary.completed }}/@{{ element.checklists_summary.total }}</span>
+                                        </div>
+
+                                        <span
+                                            class="text-[9px] uppercase tracking-wider font-bold rounded px-1.5 py-0.5 bg-amber-200/90 text-amber-900 dark:bg-amber-900/80 dark:text-amber-200"
+                                            v-if="! element.checklists_summary.can_advance"
+                                        >
+                                            Req Pending
+                                        </span>
+                                        <span
+                                            class="text-[9px] uppercase tracking-wider font-bold rounded px-1.5 py-0.5 bg-emerald-200/90 text-emerald-900 dark:bg-emerald-900/80 dark:text-emerald-200"
+                                            v-else
+                                        >
+                                            Ready
+                                        </span>
                                     </div>
                                 </a>
 
@@ -322,6 +370,102 @@
                     </x-admin::modal>
                 </form>
             </x-admin::form>
+
+            <!-- Interactive Stage Playbook Checklist Modal -->
+            <x-admin::modal ref="quickChecklistModal">
+                <x-slot:header>
+                    <div class="flex items-center gap-2">
+                        <span class="icon-checkbox-select text-2xl text-brandColor"></span>
+                        <h3 class="text-base font-semibold dark:text-white">
+                            Stage Playbook: @{{ activeChecklistLead?.title }}
+                        </h3>
+                    </div>
+                </x-slot>
+
+                <x-slot:content>
+                    <div class="flex flex-col gap-4 p-2" v-if="activeChecklistLead">
+                        <!-- Progress Header -->
+                        <div class="flex flex-col gap-1.5 rounded-lg bg-gray-50 p-3 dark:bg-gray-800/60">
+                            <div class="flex items-center justify-between text-xs font-semibold text-gray-700 dark:text-gray-200">
+                                <span class="flex items-center gap-1.5">
+                                    <span>Current Stage:</span>
+                                    <span class="rounded bg-brandColor/10 px-2 py-0.5 text-brandColor font-bold">@{{ activeChecklistLead.stage?.name }}</span>
+                                </span>
+                                <span>@{{ activeChecklistLead.checklists_summary?.completed || 0 }} / @{{ activeChecklistLead.checklists_summary?.total || 0 }} Completed</span>
+                            </div>
+
+                            <div class="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+                                <div
+                                    class="h-2 transition-all duration-300 rounded-full"
+                                    :class="activeChecklistLead.checklists_summary?.can_advance ? 'bg-emerald-500' : 'bg-amber-500'"
+                                    :style="{ width: (activeChecklistLead.checklists_summary?.percentage || 0) + '%' }"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <!-- Checklists List -->
+                        <div class="flex flex-col gap-2 max-h-[360px] overflow-y-auto pr-1">
+                            <div
+                                class="flex items-start gap-3 rounded-lg border p-3 transition-all cursor-pointer hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50"
+                                :class="{
+                                    'border-emerald-300 bg-emerald-50/30 dark:border-emerald-900/40': item.is_completed,
+                                    'border-gray-200 dark:border-gray-800': ! item.is_completed
+                                }"
+                                v-for="item in activeChecklistItems"
+                                :key="item.id"
+                                @click="toggleChecklistItem(item)"
+                            >
+                                <input
+                                    type="checkbox"
+                                    :checked="item.is_completed"
+                                    class="mt-0.5 cursor-pointer h-4 w-4 rounded border-gray-300 text-brandColor focus:ring-brandColor"
+                                    @click.stop="toggleChecklistItem(item)"
+                                />
+                                <div class="flex flex-col flex-1 gap-0.5">
+                                    <div class="flex items-center justify-between">
+                                        <span
+                                            class="text-sm font-medium"
+                                            :class="{
+                                                'line-through text-gray-400 dark:text-gray-500': item.is_completed,
+                                                'text-gray-900 dark:text-white': ! item.is_completed
+                                            }"
+                                        >
+                                            @{{ item.name }}
+                                        </span>
+                                        <span
+                                            class="rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300"
+                                            v-if="item.is_required"
+                                        >
+                                            Required
+                                        </span>
+                                    </div>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400" v-if="item.description">
+                                        @{{ item.description }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col items-center justify-center py-6 text-gray-400" v-if="! activeChecklistItems.length">
+                                <span class="icon-checkbox-select text-3xl mb-1 text-gray-300"></span>
+                                <span class="text-xs">No playbook checklist configured for this stage.</span>
+                            </div>
+                        </div>
+                    </div>
+                </x-slot>
+
+                <x-slot:footer>
+                    <div class="flex items-center justify-between w-full">
+                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                            Required tasks must be checked off before advancing stage.
+                        </span>
+                        <x-admin::button
+                            class="secondary-button"
+                            title="Close"
+                            @click="$refs.quickChecklistModal.close()"
+                        />
+                    </div>
+                </x-slot>
+            </x-admin::modal>
         </template>
     </script>
 
@@ -363,7 +507,12 @@
                         source: true,
                         type: true,
                         tags: true,
+                        stageChecklist: true,
                     },
+
+                    activeChecklistLead: null,
+
+                    activeChecklistItems: [],
 
                     tagTextColor: {
                         '#FEE2E2': '#DC2626',
@@ -874,6 +1023,61 @@
                         this.getCardFieldsStorageKey(),
                         JSON.stringify(fields)
                     );
+                },
+
+                /**
+                 * Opens the interactive quick checklist playbook modal.
+                 *
+                 * @param {object} lead
+                 * @returns {void}
+                 */
+                openChecklistModal(lead) {
+                    this.activeChecklistLead = lead;
+                    this.activeChecklistItems = [];
+
+                    this.$axios.get("{{ route('admin.leads.checklists.get', '__ID__') }}".replace('__ID__', lead.id))
+                        .then(response => {
+                            this.activeChecklistItems = response.data.checklists;
+                            this.$refs.quickChecklistModal.open();
+                        })
+                        .catch(error => {
+                            this.$emitter.emit('add-flash', { type: 'error', message: 'Failed to load stage playbook.' });
+                        });
+                },
+
+                /**
+                 * Toggles a checklist completion status.
+                 *
+                 * @param {object} item
+                 * @returns {void}
+                 */
+                toggleChecklistItem(item) {
+                    if (! this.activeChecklistLead) {
+                        return;
+                    }
+
+                    this.$axios.post("{{ route('admin.leads.checklists.toggle', ['id' => '__ID__', 'checklist_id' => '__CID__']) }}"
+                        .replace('__ID__', this.activeChecklistLead.id)
+                        .replace('__CID__', item.id)
+                    )
+                        .then(response => {
+                            item.is_completed = ! item.is_completed;
+                            this.activeChecklistLead.checklists_summary = response.data.checklists_summary;
+
+                            // Update corresponding card in stageLeads
+                            for (let [sortOrder, stage] of Object.entries(this.stageLeads)) {
+                                if (stage.leads && stage.leads.data) {
+                                    let found = stage.leads.data.find(l => l.id === this.activeChecklistLead.id);
+                                    if (found) {
+                                        found.checklists_summary = response.data.checklists_summary;
+                                        break;
+                                    }
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            this.$emitter.emit('add-flash', { type: 'error', message: 'Failed to update checklist item.' });
+                        });
                 },
             }
         });

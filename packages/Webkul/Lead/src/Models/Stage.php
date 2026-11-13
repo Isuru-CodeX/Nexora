@@ -21,6 +21,7 @@ class Stage extends Model implements StageContract
         'name',
         'probability',
         'sort_order',
+        'rotten_days',
         'lead_pipeline_id',
     ];
 
@@ -38,5 +39,13 @@ class Stage extends Model implements StageContract
     public function leads()
     {
         return $this->hasMany(LeadProxy::modelClass(), 'lead_pipeline_stage_id');
+    }
+
+    /**
+     * Get the checklists for the stage.
+     */
+    public function checklists()
+    {
+        return $this->hasMany(StageChecklistProxy::modelClass(), 'lead_pipeline_stage_id')->orderBy('sort_order');
     }
 }

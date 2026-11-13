@@ -141,6 +141,7 @@ class LeadRepository extends Repository
         $lead = parent::create(array_merge([
             'lead_pipeline_id' => 1,
             'lead_pipeline_stage_id' => 1,
+            'stage_updated_at' => Carbon::now(),
         ], $data));
 
         $this->attributeValueRepository->save(array_merge($data, [
@@ -192,9 +193,15 @@ class LeadRepository extends Repository
         }
 
         if (isset($data['lead_pipeline_stage_id'])) {
+            $currentLead = $this->find($id);
+
+            if ($currentLead && $currentLead->lead_pipeline_stage_id != $data['lead_pipeline_stage_id']) {
+                $data['stage_updated_at'] = Carbon::now();
+            }
+
             $stage = $this->stageRepository->find($data['lead_pipeline_stage_id']);
 
-            if (in_array($stage->code, ['won', 'lost'])) {
+            if ($stage && in_array($stage->code, ['won', 'lost'])) {
                 $data['closed_at'] = $data['closed_at'] ?? Carbon::now();
             } else {
                 $data['closed_at'] = null;

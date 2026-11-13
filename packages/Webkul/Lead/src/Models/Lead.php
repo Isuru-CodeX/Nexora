@@ -40,6 +40,7 @@ class Lead extends Model implements LeadContract
         'lead_type_id',
         'lead_pipeline_id',
         'lead_pipeline_stage_id',
+        'stage_updated_at',
     ];
 
     /**
@@ -50,6 +51,7 @@ class Lead extends Model implements LeadContract
     protected $casts = [
         'closed_at' => 'datetime:D M d, Y H:i A',
         'expected_close_date' => 'date:D M d, Y',
+        'stage_updated_at' => 'datetime',
     ];
 
     /**
@@ -59,6 +61,9 @@ class Lead extends Model implements LeadContract
      */
     protected $appends = [
         'rotten_days',
+        'days_in_stage',
+        'is_rotten',
+        'checklists_summary',
     ];
 
     /**
@@ -150,7 +155,17 @@ class Lead extends Model implements LeadContract
     }
 
     /**
-     * Returns the rotten days
+     * Get the checklist completions for the lead.
+     */
+    public function checklistCompletions(): HasMany
+    {
+        return $this->hasMany(StageChecklistCompletionProxy::modelClass(), 'lead_id');
+    }
+
+    /**
+     * Returns the rotten days.
+     * Uses stage-specific rotten_days if configured, otherwise pipeline default.
+     * Evaluates time elapsed since stage_updated_at (or created_at).
      */
     public function getRottenDaysAttribute()
     {
@@ -162,12 +177,122 @@ class Lead extends Model implements LeadContract
             return 0;
         }
 
-        if (! $this->created_at) {
+        // Use stage-specific rotten days if set, otherwise fallback to pipeline
+        $rottenDaysLimit = $this->stage->rotten_days ?? $this->pipeline?->rotten_days;
+
+        if (! $rottenDaysLimit || $rottenDaysLimit <= 0) {
             return 0;
         }
 
-        $rottenDate = $this->created_at->addDays($this->pipeline->rotten_days);
+        $stageEntry = $this->stage_updated_at ?? $this->created_at;
 
-        return $rottenDate->diffInDays(Carbon::now(), false);
+        if (! $stageEntry) {
+            return 0;
+        }
+
+        $daysInStage = $this->days_in_stage;
+
+        if ($daysInStage >= $rottenDaysLimit) {
+            return (int) ($daysInStage - $rottenDaysLimit + 1);
+        }
+
+        return 0;
+    }
+
+    /**
+     * Returns total days spent in the current stage.
+     */
+    public function getDaysInStageAttribute(): int
+    {
+        $stageEntry = $this->stage_updated_at ?? $this->created_at;
+
+        if (! $stageEntry) {
+            return 0;
+        }
+
+        return (int) abs(Carbon::now()->diffInDays($stageEntry));
+    }
+
+    /**
+     * Check if the lead is currently rotten.
+     */
+    public function getIsRottenAttribute(): bool
+    {
+        return $this->rotten_days > 0;
+    }
+
+    /**
+     * Get a summary of checklist progress for the current stage.
+     */
+    public function getChecklistsSummaryAttribute(): array
+    {
+        if (! $this->stage) {
+            return [
+                'total' => 0,
+                'completed' => 0,
+                'required_total' => 0,
+                'required_completed' => 0,
+                'percentage' => 100,
+                'can_advance' => true,
+            ];
+        }
+
+        $checklists = $this->stage->checklists;
+        $total = $checklists ? $checklists->count() : 0;
+
+        if ($total === 0) {
+            return [
+                'total' => 0,
+                'completed' => 0,
+                'required_total' => 0,
+                'required_completed' => 0,
+                'percentage' => 100,
+                'can_advance' => true,
+            ];
+        }
+
+        $completedIds = $this->checklistCompletions()
+            ->where('is_completed', true)
+            ->pluck('lead_stage_checklist_id')
+            ->toArray();
+
+        $completedCount = 0;
+        $requiredTotal = 0;
+        $requiredCompleted = 0;
+
+        foreach ($checklists as $item) {
+            $isDone = in_array($item->id, $completedIds);
+
+            if ($isDone) {
+                $completedCount++;
+            }
+
+            if ($item->is_required) {
+                $requiredTotal++;
+
+                if ($isDone) {
+                    $requiredCompleted++;
+                }
+            }
+        }
+
+        return [
+            'total' => $total,
+            'completed' => $completedCount,
+            'required_total' => $requiredTotal,
+            'required_completed' => $requiredCompleted,
+            'percentage' => (int) round(($completedCount / $total) * 100),
+            'can_advance' => $requiredCompleted === $requiredTotal,
+        ];
+    }
+
+    /**
+     * Check if there are any mandatory checklist items still incomplete in current stage.
+     */
+    public function hasPendingRequiredChecklists(): bool
+    {
+        $summary = $this->checklists_summary;
+
+        return ! $summary['can_advance'];
     }
 }

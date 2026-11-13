@@ -26,6 +26,10 @@ Route::controller(LeadController::class)->prefix('leads')->group(function () {
 
     Route::put('stage/edit/{id}', 'updateStage')->name('admin.leads.stage.update');
 
+    Route::post('{id}/checklists/{checklist_id}/toggle', 'toggleChecklist')->name('admin.leads.checklists.toggle');
+
+    Route::get('{id}/checklists', 'getChecklists')->name('admin.leads.checklists.get');
+
     Route::get('search', 'search')->name('admin.leads.search');
 
     Route::delete('{id}', 'destroy')->name('admin.leads.delete');
