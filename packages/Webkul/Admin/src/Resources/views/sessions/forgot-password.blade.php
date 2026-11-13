@@ -90,7 +90,7 @@
         <div class="relative z-10 text-sm font-normal text-gray-500 dark:text-gray-400">
             @lang('admin::app.components.layouts.powered-by.description', [
                 'krayin' => '<span class="nexora-gradient-text font-semibold">Nexora</span>',
-                'webkul' => '<span class="font-semibold text-gray-700 dark:text-gray-200">Isuru Rathnayaka</span>',
+                'webkul' => '<span class="font-semibold text-gray-700 dark:text-gray-200">Nexora Community</span>',
             ])
         </div>
     </div>

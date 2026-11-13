@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/Community-Inclusive_%26_Welcoming-2590D6?style=for-the-badge&logo=discourse&logoColor=white" alt="Community Status" />
   <img src="https://img.shields.io/badge/Harassment-Zero_Tolerance-5A4DB9?style=for-the-badge&logo=shield&logoColor=white" alt="Zero Tolerance" />
   <img src="https://img.shields.io/badge/Enforcement-Tiered_Matrix-9E24B7?style=for-the-badge&logo=gavel&logoColor=white" alt="Tiered Enforcement" />
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/Maintainer-@Isuru--CodeX-D803B3?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
+  <a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/Maintainer-Nexora_Team-D803B3?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-10B981?style=for-the-badge" alt="MIT License" /></a>
 </p>
 
@@ -31,7 +31,7 @@
   <a href="#-responsibilities-of-maintainers"><b>🛡️ Maintainer Duties</b></a> •
   <a href="#-tiered-enforcement-matrix"><b>⚖️ Enforcement Matrix</b></a> •
   <a href="#-confidential-reporting-workflow"><b>📬 Reporting Protocol</b></a> •
-  <a href="#-author--connect"><b>👨‍💻 Author</b></a>
+  <a href="#-community--maintainers"><b>👥 Maintainers</b></a>
 </p>
 
 </div>
@@ -192,9 +192,9 @@ If you experience or witness behavior that violates this Code of Conduct, or hav
                   [Step 1: Incident Occurs]
                               │
                               ▼
-        [Step 2: Submit Private Report to Maintainer]
-        Email: isururathnayaka999@gmail.com
-        GitHub: @Isuru-CodeX (Private Message)
+        [Step 2: Submit Private Report to Maintainers]
+        Email: security@nexora.io
+        GitHub: Private Security Advisory (see SECURITY.md)
                               │
                               ▼
             [Step 3: Confidential Acknowledgement]
@@ -238,21 +238,20 @@ Community impact guidelines and enforcement procedures are inspired by standard 
 <!-- Animated Gradient Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="divider" />
 
-## 👨‍💻 Author & Connect
+## 🌐 Community & Maintainers
 
 <div align="center">
 
-### **Isuru Rathnayaka**
-*Full-Stack Software Engineer & AI Builder*
+### **Nexora CRM Open-Source Core Team**
+*Enterprise-Grade Autonomous Customer Relationship Management*
 
 <br/>
 
-<!-- Profile Views & Socials -->
-<img src="https://komarev.com/ghpvc/?username=Isuru-CodeX&label=Profile%20Views&color=7c3aed&style=for-the-badge&logo=eye" alt="Profile Views" />
-<a href="https://github.com/Isuru-CodeX?tab=followers"><img src="https://img.shields.io/github/followers/Isuru-CodeX?label=Followers&style=for-the-badge&logo=github&color=6366f1&logoColor=white" alt="Followers" /></a>
-<a href="https://www.linkedin.com/in/isuru-rathnayaka-220484288/"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-<a href="mailto:isururathnayaka999@gmail.com"><img src="https://img.shields.io/badge/Gmail-Email%20Me-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" /></a>
-<a href="https://github.com/Isuru-CodeX"><img src="https://img.shields.io/badge/GitHub-@Isuru--CodeX-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+<!-- Community Links -->
+<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 

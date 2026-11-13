@@ -31,7 +31,7 @@
   <a href="#-built-in-architectural-defenses"><b>🔐 Defenses</b></a> •
   <a href="#-production-hardening-checklist"><b>🌐 Server Hardening</b></a> •
   <a href="#-responsible-disclosure-hall-of-fame"><b>🏅 Hall of Fame</b></a> •
-  <a href="#-author--connect"><b>👨‍💻 Author</b></a>
+  <a href="#-community--maintainers"><b>👥 Maintainers</b></a>
 </p>
 
 </div>
@@ -99,7 +99,7 @@ You can submit reports through either of the following confidential channels:
 4. Click **Report a vulnerability** to open an encrypted private advisory draft directly with the maintainers.
 
 #### Method 2: Confidential Maintainer Email
-* **Email Address:** `isururathnayaka999@gmail.com`
+* **Email Address:** `security@nexora.io`
 * **Subject Format:** `[SECURITY VULNERABILITY] Nexora CRM - <Vulnerability Type>`
 * **PGP Encryption:** Available upon request for sensitive proofs of concept.
 
@@ -332,21 +332,20 @@ We believe in acknowledging the valuable contributions of the security research 
 <!-- Animated Gradient Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="divider" />
 
-## 👨‍💻 Author & Connect
+## 🌐 Community & Maintainers
 
 <div align="center">
 
-### **Isuru Rathnayaka**
-*Full-Stack Software Engineer & AI Builder*
+### **Nexora CRM Open-Source Core Team**
+*Enterprise-Grade Autonomous Customer Relationship Management*
 
 <br/>
 
-<!-- Profile Views & Socials -->
-<img src="https://komarev.com/ghpvc/?username=Isuru-CodeX&label=Profile%20Views&color=7c3aed&style=for-the-badge&logo=eye" alt="Profile Views" />
-<a href="https://github.com/Isuru-CodeX?tab=followers"><img src="https://img.shields.io/github/followers/Isuru-CodeX?label=Followers&style=for-the-badge&logo=github&color=6366f1&logoColor=white" alt="Followers" /></a>
-<a href="https://www.linkedin.com/in/isuru-rathnayaka-220484288/"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-<a href="mailto:isururathnayaka999@gmail.com"><img src="https://img.shields.io/badge/Gmail-Email%20Me-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" /></a>
-<a href="https://github.com/Isuru-CodeX"><img src="https://img.shields.io/badge/GitHub-@Isuru--CodeX-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+<!-- Community Links -->
+<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 

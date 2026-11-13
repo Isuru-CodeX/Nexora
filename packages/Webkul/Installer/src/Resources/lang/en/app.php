@@ -294,7 +294,7 @@ return [
             'installation-title' => 'Welcome to Installation',
             'installation-wizard' => 'Installation Wizard language',
             'title' => 'Nexora Installer',
-            'webkul' => 'Isuru Rathnayaka',
+            'webkul' => 'Nexora Community',
         ],
     ],
 ];

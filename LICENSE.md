@@ -7,7 +7,7 @@
 
 <!-- Animated SVG Live Telemetry & License Ticker (Zero External Dependencies) -->
 <div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=14&duration=2400&pause=600&color=01C7F4&center=true&vCenter=true&width=750&lines=%E2%9C%A6+NEXORA+CRM+OPEN-SOURCE+MIT+LICENSE+DIRECTIVE;%E2%9C%A6+100%25+PERMISSIVE+FOR+COMMERCIAL+%26+ENTERPRISE+USE;%E2%9C%A6+FREEDOM+TO+MODIFY%2C+DISTRIBUTE+%26+SUBLICENSE+WITH+ZERO+SEAT+FEES;%E2%9C%A6+FULL+DATA+SOVEREIGNTY+%E2%80%A2+COPYRIGHT+2026+ISURU+RATHNAYAKA" alt="Nexora License Telemetry Ticker" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=14&duration=2400&pause=600&color=01C7F4&center=true&vCenter=true&width=750&lines=%E2%9C%A6+NEXORA+CRM+OPEN-SOURCE+MIT+LICENSE+DIRECTIVE;%E2%9C%A6+100%25+PERMISSIVE+FOR+COMMERCIAL+%26+ENTERPRISE+USE;%E2%9C%A6+FREEDOM+TO+MODIFY%2C+DISTRIBUTE+%26+SUBLICENSE+WITH+ZERO+SEAT+FEES;%E2%9C%A6+FULL+DATA+SOVEREIGNTY+%E2%80%A2+COPYRIGHT+2026+NEXORA+CRM+TEAM" alt="Nexora License Telemetry Ticker" />
 </div>
 
 <br/>
@@ -20,7 +20,7 @@
   <img src="https://img.shields.io/badge/Distribution-Unrestricted-9E24B7?style=for-the-badge&logo=cube&logoColor=white" alt="Distribution Unrestricted" />
   <img src="https://img.shields.io/badge/Copyleft-None_(Permissive)-D803B3?style=for-the-badge&logo=unlock&logoColor=white" alt="Permissive" />
   <img src="https://img.shields.io/badge/Warranty-None_(AS--IS)-EF4444?style=for-the-badge&logo=shield-halved&logoColor=white" alt="AS-IS Warranty" />
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/Author-Isuru_Rathnayaka-10B981?style=for-the-badge&logo=github&logoColor=white" alt="Author" /></a>
+  <a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/Maintainer-Nexora_Team-10B981?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
 </p>
 
 <!-- Quick Navigation Links -->
@@ -32,7 +32,7 @@
   <a href="#-open-source-license-comparison"><b>🆚 License Comparison</b></a> •
   <a href="#-frequently-asked-questions-faq"><b>❓ FAQ</b></a> •
   <a href="#-official-mit-license-text"><b>📜 Legal Text</b></a> •
-  <a href="#-author--connect"><b>👨‍💻 Author</b></a>
+  <a href="#-community--maintainers"><b>👥 Maintainers</b></a>
 </p>
 
 </div>
@@ -103,7 +103,7 @@ The **MIT License** originated at the Massachusetts Institute of Technology in t
       <h3>📋 Conditions</h3>
       <p><em>What you are required to do:</em></p>
       <ul>
-        <li><strong>Preserve Copyright Notice:</strong> Retain the original copyright notice (<code>Copyright (c) 2026 Isuru Rathnayaka (Nexora CRM)</code>) in all copies or substantial portions of the Software.</li>
+        <li><strong>Preserve Copyright Notice:</strong> Retain the original copyright notice (<code>Copyright (c) 2026 Nexora CRM Team</code>) in all copies or substantial portions of the Software.</li>
         <li><strong>Preserve License Text:</strong> Include the complete text of the MIT License alongside any redistribution of the source code.</li>
         <li><strong>Document Major Changes:</strong> While not legally enforced by MIT, documenting architecture changes helps maintain future upgrade compatibility.</li>
       </ul>
@@ -203,7 +203,7 @@ Below is the official, legally binding text of the MIT License governing the **N
 ```text
 MIT License
 
-Copyright (c) 2026 Isuru Rathnayaka (Nexora CRM)
+Copyright (c) 2026 Nexora CRM Team (https://github.com/Isuru-CodeX/NoxusCRM)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -229,21 +229,20 @@ SOFTWARE.
 <!-- Animated Gradient Divider -->
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="divider" />
 
-## 👨‍💻 Author & Connect
+## 🌐 Community & Maintainers
 
 <div align="center">
 
-### **Isuru Rathnayaka**
-*Full-Stack Software Engineer & AI Builder*
+### **Nexora CRM Open-Source Core Team**
+*Enterprise-Grade Autonomous Customer Relationship Management*
 
 <br/>
 
-<!-- Profile Views & Socials -->
-<img src="https://komarev.com/ghpvc/?username=Isuru-CodeX&label=Profile%20Views&color=7c3aed&style=for-the-badge&logo=eye" alt="Profile Views" />
-<a href="https://github.com/Isuru-CodeX?tab=followers"><img src="https://img.shields.io/github/followers/Isuru-CodeX?label=Followers&style=for-the-badge&logo=github&color=6366f1&logoColor=white" alt="Followers" /></a>
-<a href="https://www.linkedin.com/in/isuru-rathnayaka-220484288/"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" /></a>
-<a href="mailto:isururathnayaka999@gmail.com"><img src="https://img.shields.io/badge/Gmail-Email%20Me-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail" /></a>
-<a href="https://github.com/Isuru-CodeX"><img src="https://img.shields.io/badge/GitHub-@Isuru--CodeX-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+<!-- Community Links -->
+<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 
