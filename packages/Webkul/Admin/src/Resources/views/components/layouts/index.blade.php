@@ -203,25 +203,30 @@
         id="nexora-preloader"
         class="fixed inset-0 z-[999999] flex flex-col items-center justify-center bg-white transition-opacity duration-400 ease-out dark:bg-[#070B14]"
     >
-        <div class="pointer-events-none absolute h-72 w-72 rounded-full bg-gradient-to-tr from-[#01C7F4]/20 via-[#5A4DB9]/25 to-[#D803B3]/20 blur-3xl dark:from-[#01C7F4]/15 dark:to-[#D803B3]/15"></div>
+        <div class="pointer-events-none absolute h-80 w-80 rounded-full bg-gradient-to-tr from-[#01C7F4]/25 via-[#5A4DB9]/30 to-[#D803B3]/25 blur-3xl dark:from-[#01C7F4]/20 dark:to-[#D803B3]/20"></div>
 
-        <div class="relative flex flex-col items-center gap-5">
-            <div class="relative flex h-20 w-20 items-center justify-center">
-                <div class="absolute inset-0 nexora-spin-ring rounded-full border-2 border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3] [animation-duration:1.1s]"></div>
-                <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] opacity-25 blur-sm"></div>
+        <div class="relative flex flex-col items-center gap-6">
+            <div class="relative flex h-24 w-24 items-center justify-center">
+                <!-- Outer orbital ring -->
+                <div class="absolute inset-0 nexora-spin-ring rounded-full border-[2.5px] border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3]"></div>
+                <!-- Inner counter-rotating orbital ring -->
+                <div class="absolute inset-2 nexora-spin-reverse rounded-full border-2 border-transparent border-t-[#D803B3] border-l-[#01C7F4]"></div>
+                <!-- Ambient glow -->
+                <div class="absolute inset-1 rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] opacity-25 blur-md"></div>
+                <!-- Brand icon -->
                 <img
                     src="{{ asset('images/nexora-icon.png') }}"
                     alt="{{ config('app.name', 'Nexora') }}"
-                    class="h-11 w-11 object-contain drop-shadow-md"
+                    class="h-11 w-11 object-contain drop-shadow-[0_0_14px_rgba(1,199,244,0.5)] transition-transform duration-300"
                 />
             </div>
 
-            <div class="flex flex-col items-center gap-2">
-                <span class="text-xs font-bold tracking-widest text-gray-900 uppercase dark:text-white">
+            <div class="flex flex-col items-center gap-2.5">
+                <span class="text-xs font-extrabold tracking-[0.25em] text-gray-900 uppercase dark:text-white">
                     Nexora<span class="bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] bg-clip-text text-transparent">.CRM</span>
                 </span>
-                <div class="h-1 w-28 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
-                    <div class="nexora-preloader-bar h-full w-full rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3]"></div>
+                <div class="h-1.5 w-32 overflow-hidden rounded-full bg-gray-200/80 dark:bg-gray-800/80 shadow-inner">
+                    <div class="nexora-preloader-bar h-full w-full rounded-full bg-gradient-to-r from-[#01C7F4] via-[#5A4DB9] to-[#D803B3] shadow-[0_0_10px_rgba(1,199,244,0.8)]"></div>
                 </div>
             </div>
         </div>
@@ -297,20 +302,31 @@
         >
             <div
                 v-if="isVisible"
-                class="fixed inset-0 z-[100000] flex items-center justify-center bg-gray-950/60 backdrop-blur-md"
+                class="fixed inset-0 z-[100000] flex items-center justify-center bg-gray-950/70 backdrop-blur-md"
             >
-                <div class="nexora-scale-in flex flex-col items-center gap-3.5 rounded-2xl border border-gray-200/80 bg-white/95 px-7 py-5 shadow-2xl dark:border-gray-800 dark:bg-gray-900/95">
-                    <div class="relative flex h-12 w-12 items-center justify-center">
-                        <div class="absolute inset-0 nexora-spin-ring rounded-full border-2 border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3] [animation-duration:0.9s]"></div>
+                <div class="nexora-scale-in relative flex flex-col items-center gap-4 rounded-3xl border border-white/20 bg-white/90 p-8 shadow-2xl backdrop-blur-xl dark:border-gray-800/80 dark:bg-gray-900/90 min-w-[260px] max-w-sm text-center">
+                    <!-- Glow background -->
+                    <div class="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#01C7F4]/20 via-[#5A4DB9]/25 to-[#D803B3]/20 blur-xl opacity-75"></div>
+
+                    <div class="relative flex h-16 w-16 items-center justify-center">
+                        <!-- Outer rotating orbital -->
+                        <div class="absolute inset-0 nexora-spin-ring rounded-full border-2 border-transparent border-t-[#01C7F4] border-r-[#5A4DB9] border-b-[#D803B3]"></div>
+                        <!-- Inner counter rotating orbital -->
+                        <div class="absolute inset-2 nexora-spin-reverse rounded-full border-2 border-transparent border-t-[#D803B3] border-l-[#01C7F4]"></div>
                         <img
                             src="{{ asset('images/nexora-icon.png') }}"
                             alt="Nexora"
-                            class="h-6 w-6 object-contain"
+                            class="h-8 w-8 object-contain drop-shadow-[0_0_10px_rgba(1,199,244,0.5)]"
                         />
                     </div>
-                    <p class="text-xs font-semibold tracking-wide text-gray-700 dark:text-gray-200">
-                        @{{ message }}
-                    </p>
+                    <div class="flex flex-col items-center gap-1">
+                        <p class="text-sm font-semibold tracking-wide text-gray-800 dark:text-gray-100">
+                            @{{ message }}
+                        </p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            Please wait a moment...
+                        </p>
+                    </div>
                 </div>
             </div>
         </transition>

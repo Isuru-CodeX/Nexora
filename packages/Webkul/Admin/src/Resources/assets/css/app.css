@@ -21,11 +21,24 @@
     font-variant: normal;
     text-transform: none;
     line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 
-    /* Better Font Rendering =========== */
+    /* Crisp font rendering =========== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
   }
+
+  /* Universal icon sizing utilities */
+  .icon-xs { font-size: 0.75rem !important; }
+  .icon-sm { font-size: 0.875rem !important; }
+  .icon-md { font-size: 1.125rem !important; }
+  .icon-lg { font-size: 1.25rem !important; }
+  .icon-xl { font-size: 1.5rem !important; }
+  .icon-2xl { font-size: 1.875rem !important; }
 
   /* Help menu glyph rendered as an SVG mask (no icomoon glyph available). */
   .icon-help {
@@ -519,37 +532,66 @@
     }
 
     .primary-button {
-        @apply bg-brandColor border border-transparent cursor-pointer flex font-semibold gap-x-1.5 items-center place-content-center px-3.5 py-1.5 rounded-lg text-white transition-all duration-300 ease-out;
+        @apply cursor-pointer inline-flex font-semibold gap-2 items-center justify-center px-4 py-2 rounded-xl text-sm text-white select-none transition-all duration-200 ease-out border border-transparent shadow-sm;
         background-image: linear-gradient(135deg, #01C7F4 0%, #5A4DB9 52%, #D803B3 100%);
         background-size: 170% 170%;
         background-position: 0% 50%;
-        box-shadow: 0 6px 18px -6px rgba(90, 77, 185, 0.55);
+        box-shadow: 0 4px 14px -3px rgba(90, 77, 185, 0.45), 0 0 0 1px rgba(1, 199, 244, 0.18);
     }
 
     .primary-button:hover {
         background-position: 100% 50%;
         transform: translateY(-1px);
-        box-shadow: 0 10px 24px -6px rgba(216, 3, 179, 0.45);
+        box-shadow: 0 8px 20px -4px rgba(216, 3, 179, 0.45), 0 0 0 1px rgba(1, 199, 244, 0.32);
     }
 
     .primary-button:active {
-        transform: translateY(0) scale(0.98);
+        transform: scale(0.97) !important;
     }
 
     .secondary-button {
-        @apply flex cursor-pointer place-content-center items-center gap-x-1.5 whitespace-nowrap rounded-lg border-2 border-brandColor bg-white px-3.5 py-1.5 font-semibold text-brandColor transition-all duration-300 ease-out hover:bg-[#5A4DB9]/10 focus:bg-[#5A4DB9]/10 dark:border-indigo-400/40 dark:bg-gray-900/80 dark:text-indigo-200 dark:hover:border-cyan-400/60 dark:hover:bg-indigo-500/15;
+        @apply inline-flex cursor-pointer justify-center items-center gap-2 whitespace-nowrap rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 select-none shadow-sm transition-all duration-200 ease-out hover:bg-gray-50 hover:border-gray-400 focus:outline-none dark:border-gray-700 dark:bg-gray-900/90 dark:text-gray-200 dark:hover:border-gray-600 dark:hover:bg-gray-800;
     }
 
     .secondary-button:hover {
         transform: translateY(-1px);
+        box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
     }
 
     .secondary-button:active {
-        transform: translateY(0) scale(0.98);
+        transform: scale(0.97) !important;
     }
 
     .transparent-button {
-        @apply flex cursor-pointer appearance-none place-content-center items-center gap-x-1.5 whitespace-nowrap rounded-lg border-2 border-transparent px-3 py-1.5 font-semibold text-gray-600 transition-all duration-200 hover:bg-gray-100 focus:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800/80 dark:focus:bg-gray-800/80;
+        @apply inline-flex cursor-pointer appearance-none justify-center items-center gap-2 whitespace-nowrap rounded-xl border border-transparent px-3.5 py-2 text-sm font-semibold text-gray-600 select-none transition-all duration-150 hover:bg-gray-100 hover:text-gray-900 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800/80 dark:hover:text-white;
+    }
+
+    .transparent-button:active {
+        transform: scale(0.97) !important;
+    }
+
+    /* Button Loading State */
+    .btn-loading {
+        position: relative !important;
+        pointer-events: none !important;
+        opacity: 0.82 !important;
+    }
+
+    .btn-loading::after {
+        content: '';
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 9999px;
+        animation: nexoraButtonSpin 0.65s linear infinite;
+        flex-shrink: 0;
+    }
+
+    @keyframes nexoraButtonSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 
     ::-webkit-scrollbar {
@@ -637,9 +679,32 @@
         background: #e0e7ff;
     }
 
-    html.dark [class^="icon-"],
-    html.dark [class*=" icon-"]{
+    html.dark [class^="icon-"]:not([class*="text-"]):not([class*="text_"]),
+    html.dark [class*=" icon-"]:not([class*="text-"]):not([class*="text_"]) {
         color: #d1d5db;
+    }
+
+    /* Preserve crisp colored icons across buttons, pills, and badges */
+    .primary-button [class^="icon-"],
+    .primary-button [class*=" icon-"],
+    .bg-brandColor [class^="icon-"],
+    .bg-brandColor [class*=" icon-"] {
+        color: #ffffff !important;
+    }
+
+    button [class^="icon-"],
+    button [class*=" icon-"],
+    a [class^="icon-"],
+    a [class*=" icon-"] {
+        color: inherit;
+        transition: transform 180ms ease, color 180ms ease;
+    }
+
+    button:hover [class^="icon-"],
+    button:hover [class*=" icon-"],
+    a:hover [class^="icon-"],
+    a:hover [class*=" icon-"] {
+        transform: scale(1.06);
     }
 
     p {
@@ -802,6 +867,33 @@
     100% { transform: rotate(360deg); }
 }
 
+@keyframes nexoraPreloaderSpinReverse {
+    0% { transform: rotate(360deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes nexoraTabFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.995);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes nexoraPulseOrb {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0.9;
+    }
+}
+
 @keyframes nexoraPreloaderBar {
     0% { transform: translateX(-100%); }
     50% { transform: translateX(0%); }
@@ -834,6 +926,14 @@
 
 .nexora-spin-ring {
     animation: nexoraPreloaderSpin 1.1s linear infinite;
+}
+
+.nexora-spin-reverse {
+    animation: nexoraPreloaderSpinReverse 1.5s linear infinite;
+}
+
+.nexora-tab-pane {
+    animation: nexoraTabFadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .nexora-pulse-glow {

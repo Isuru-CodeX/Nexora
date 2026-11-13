@@ -20,7 +20,7 @@
     >
         <div
             v-if="isActive"
-            class="animate-[on-fade_0.5s_ease-in-out]"
+            class="nexora-tab-pane"
         >
             <slot></slot>
         </div>

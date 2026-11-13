@@ -42,6 +42,7 @@
   <a href="#-system-requirements"><b>💻 Requirements</b></a> •
   <a href="#-software-downloads"><b>📥 Downloads</b></a> •
   <a href="#-quick-start--installation"><b>🚀 Quick Start</b></a> •
+  <a href="#-mail--inbound-sync-configuration-guide"><b>📧 Mail Setup</b></a> •
   <a href="#-completed-milestones--roadmap"><b>🗺️ Roadmap</b></a> •
   <a href="#-production-deployment"><b>🌐 Deployment</b></a> •
   <a href="#-author--connect"><b>👨‍💻 Author</b></a>
@@ -586,6 +587,163 @@ If you seeded the database with default demo credentials:
 
 > [!WARNING]
 > Change the default administrator credentials immediately upon logging in via **Settings → Users** before deploying to any public or production network.
+
+---
+
+<!-- Animated Gradient Divider -->
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="divider" />
+
+## 📧 Mail & Inbound Sync Configuration Guide
+
+Nexora CRM features a unified enterprise communications hub supporting **outbound transactional email** (lead notifications, quotations, password resets) and **two-way inbound IMAP sync** (automatically tracking incoming replies from prospects directly under deal and contact activity timelines).
+
+```
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                          Nexora Unified Email Architecture                             │
+├───────────────────────────────┬────────────────────────────────────────────────────────┤
+│ 🚀 Outbound Dispatch (SMTP)   │ 📥 Two-Way Inbound Sync (IMAP)                         │
+├───────────────────────────────┼────────────────────────────────────────────────────────┤
+│ • Gmail / Google Workspace    │ • Inbound thread attachment to Leads & Contacts        │
+│ • Amazon SES / SendGrid       │ • Background ingestion via cron & queue workers        │
+│ • Mailgun / Postmark / Brevo  │ • Read receipts & multi-user mailbox bindings          │
+│ • Custom Postfix / Exim Relay │ • HTML sanitizer & secure MIME attachment parser       │
+└───────────────────────────────┴────────────────────────────────────────────────────────┘
+```
+
+### 1. Outbound SMTP Setup (`.env`)
+
+Configure your email transport driver in the project root's `.env` file:
+
+#### Option A: Gmail / Google Workspace (Recommended for Development & SMBs)
+
+> [!IMPORTANT]
+> If using Gmail or Google Workspace with 2-Step Verification enabled, you **must** generate a dedicated 16-character **Google App Password**. Your regular Google account password will be rejected.
+> 1. Visit: [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+> 2. Select app **Mail** and device **Other (Nexora CRM)**.
+> 3. Copy the generated 16-character string into `MAIL_PASSWORD`.
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-sales-team@gmail.com
+MAIL_PASSWORD=abcd-efgh-ijkl-mnop
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="your-sales-team@gmail.com"
+MAIL_FROM_NAME="Nexora CRM"
+```
+
+#### Option B: SendGrid
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.sendgrid.net
+MAIL_PORT=587
+MAIL_USERNAME=apikey
+MAIL_PASSWORD=SG.your_sendgrid_api_key_here
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="sales@yourdomain.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+#### Option C: Amazon Simple Email Service (SES)
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=email-smtp.us-east-1.amazonaws.com
+MAIL_PORT=587
+MAIL_USERNAME=AKIAIOSFODNN7EXAMPLE
+MAIL_PASSWORD=BPg1p3...your_ses_smtp_password...
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="support@yourdomain.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+#### Option D: Mailgun
+
+```dotenv
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailgun.org
+MAIL_PORT=587
+MAIL_USERNAME=postmaster@mg.yourdomain.com
+MAIL_PASSWORD=your_mailgun_smtp_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="notifications@yourdomain.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+---
+
+### 2. Inbound IMAP Mail Sync (Two-Way Conversations)
+
+Nexora allows sales representatives to connect their personal or shared team inboxes so that replies from customers are automatically ingested and attributed to the appropriate Lead or Contact card.
+
+#### Configuring User Mailboxes in the Web UI:
+1. Sign in to the Admin Dashboard as an administrator.
+2. Navigate to **Mail → Settings** (or **Settings → Configuration → Email**).
+3. Connect your IMAP credentials:
+   - **Host:** `imap.gmail.com` (or your mail server's IMAP endpoint)
+   - **Port:** `993`
+   - **Encryption:** `ssl`
+   - **Username / Password:** Your email address and App Password.
+4. Save and click **Test Connection** to confirm connectivity.
+
+---
+
+### 3. Background Queue Worker (Production Setup)
+
+For optimal application performance, emails should be dispatched asynchronously rather than blocking HTTP requests.
+
+1. In `.env`, set your queue driver to `database`:
+   ```dotenv
+   QUEUE_CONNECTION=database
+   ```
+
+2. Run the background queue worker locally:
+   ```bash
+   php artisan queue:work --tries=3 --timeout=90
+   ```
+
+3. In a production Linux environment (Ubuntu/Debian), configure **Supervisor** (`/etc/supervisor/conf.d/nexora-worker.conf`):
+   ```ini
+   [program:nexora-worker]
+   process_name=%(program_name)s_%(process_num)02d
+   command=php /var/www/nexora/artisan queue:work database --sleep=3 --tries=3 --max-time=3600
+   autostart=true
+   autorestart=true
+   stopasgroup=true
+   killasgroup=true
+   user=www-data
+   numprocs=2
+   redirect_stderr=true
+   stdout_logfile=/var/www/nexora/storage/logs/worker.log
+   stopwaitsecs=3600
+   ```
+   Then reload Supervisor:
+   ```bash
+   sudo supervisorctl reread
+   sudo supervisorctl update
+   sudo supervisorctl start nexora-worker:*
+   ```
+
+---
+
+### 4. Testing Your Email Dispatch
+
+Verify your email configuration in seconds using Laravel Tinker:
+
+```bash
+php artisan tinker --execute="Mail::raw('Test notification from Nexora CRM', function (\$m) { \$m->to(config('mail.from.address'))->subject('Nexora CRM Mail Engine Verification'); }); echo 'Dispatched successfully!' . PHP_EOL;"
+```
+
+If an error occurs, inspect the real-time application logs:
+```bash
+# Windows PowerShell:
+Get-Content storage/logs/laravel.log -Tail 30
+
+# Linux / macOS:
+tail -n 30 storage/logs/laravel.log
+```
 
 ---
 

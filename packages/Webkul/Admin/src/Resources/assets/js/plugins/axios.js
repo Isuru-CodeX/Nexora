@@ -66,6 +66,13 @@ const TopLoader = {
             }
         }, 420);
     },
+
+    pulse(duration = 240) {
+        this.start();
+        setTimeout(() => {
+            this.done();
+        }, duration);
+    },
 };
 
 window.NexoraTopLoader = TopLoader;
@@ -93,9 +100,16 @@ axios.interceptors.response.use(
     }
 );
 
-// Intercept internal anchor clicks for instant route transition feedback
+// Intercept internal anchor clicks, tab changes, and form submissions for instant visual feedback
 if (typeof document !== "undefined") {
+    // 1. Link / route navigation clicks
     document.addEventListener("click", (e) => {
+        // Tab clicks trigger instantaneous micro-loader
+        const tabEl = e.target.closest('[role="tab"], .tab-item, [data-tab]');
+        if (tabEl) {
+            TopLoader.pulse(200);
+        }
+
         const anchor = e.target.closest("a");
         if (!anchor || !anchor.href) return;
 
@@ -120,8 +134,32 @@ if (typeof document !== "undefined") {
         } catch (err) {}
     });
 
+    // 2. Form submission button loading state & progress
+    document.addEventListener("submit", (e) => {
+        const form = e.target;
+        if (!form) return;
+
+        // Skip background or hidden ping forms if any
+        if (form.getAttribute("data-no-loader") !== null) return;
+
+        TopLoader.start();
+
+        const submitBtn = form.querySelector('button[type="submit"], input[type="submit"], button.primary-button');
+        if (submitBtn && !submitBtn.classList.contains("btn-loading")) {
+            submitBtn.classList.add("btn-loading");
+        }
+    });
+
     window.addEventListener("beforeunload", () => {
         TopLoader.start();
+    });
+
+    // Reset button loading state on pageshow / bfcache restore
+    window.addEventListener("pageshow", () => {
+        TopLoader.done();
+        document.querySelectorAll(".btn-loading").forEach((btn) => {
+            btn.classList.remove("btn-loading");
+        });
     });
 }
 
