@@ -104,7 +104,9 @@ class MagicAIService
      */
     private static function processPromptWithAI($prompt)
     {
-        $model = core()->getConfigData('general.magic_ai.settings.other_model') ?: core()->getConfigData('general.magic_ai.settings.model');
+        $model = core()->getConfigData('general.magic_ai.settings.other_model')
+            ?: core()->getConfigData('general.magic_ai.settings.model')
+            ?: 'google/gemini-2.5-flash';
 
         $apiKey = core()->getConfigData('general.magic_ai.settings.api_key');
 
@@ -153,25 +155,43 @@ class MagicAIService
             // 1. Native Google Gemini (if key starts with AIza...)
             if (str_starts_with($apiKey, 'AIza')) {
                 $geminiModel = str_replace('google/', '', $model);
-                if (! in_array($geminiModel, ['gemini-2.0-flash-001', 'gemini-2.0-flash', 'gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-pro-1.5', 'gemini-flash-1.5'])) {
-                    $geminiModel = 'gemini-2.0-flash';
-                }
-                $geminiModel = str_replace(['-001', 'pro-1.5', 'flash-1.5'], ['', '1.5-pro', '1.5-flash'], $geminiModel);
 
-                $geminiUrl = "https://generativelanguage.googleapis.com/v1beta/models/{$geminiModel}:generateContent?key={$apiKey}";
-                $response = \Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                ])->post($geminiUrl, [
-                    'system_instruction' => [
-                        'parts' => [['text' => self::getSystemPrompt()]],
-                    ],
-                    'contents' => [
-                        [
-                            'role' => 'user',
-                            'parts' => [['text' => $cleanText]],
+                // Normalise model identifier for Google AI Studio
+                $directUrl = "https://generativelanguage.googleapis.com/v1beta/models/{$geminiModel}:generateContent?key={$apiKey}";
+                $response = \Http::withoutVerifying()
+                    ->timeout(60)
+                    ->withHeaders([
+                        'Content-Type' => 'application/json',
+                    ])->post($directUrl, [
+                        'system_instruction' => [
+                            'parts' => [['text' => self::getSystemPrompt()]],
                         ],
-                    ],
-                ]);
+                        'contents' => [
+                            [
+                                'role' => 'user',
+                                'parts' => [['text' => $cleanText]],
+                            ],
+                        ],
+                    ]);
+
+                // Fallback to gemini-2.5-flash if the requested model is not found directly in Google AI Studio
+                if ($response->status() === 404 && $geminiModel !== 'gemini-2.5-flash') {
+                    $response = \Http::withoutVerifying()
+                        ->timeout(60)
+                        ->withHeaders([
+                            'Content-Type' => 'application/json',
+                        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}", [
+                            'system_instruction' => [
+                                'parts' => [['text' => self::getSystemPrompt()]],
+                            ],
+                            'contents' => [
+                                [
+                                    'role' => 'user',
+                                    'parts' => [['text' => $cleanText]],
+                                ],
+                            ],
+                        ]);
+                }
 
                 if ($response->failed()) {
                     throw new Exception($response->body());
@@ -194,21 +214,45 @@ class MagicAIService
             // 2. Native Anthropic Claude (if key starts with sk-ant-...)
             if (str_starts_with($apiKey, 'sk-ant-')) {
                 $claudeModel = str_replace('anthropic/', '', $model);
-                $response = \Http::withHeaders([
-                    'Content-Type' => 'application/json',
-                    'x-api-key' => $apiKey,
-                    'anthropic-version' => '2023-06-01',
-                ])->post('https://api.anthropic.com/v1/messages', [
-                    'model' => $claudeModel,
-                    'max_tokens' => 4096,
-                    'system' => self::getSystemPrompt(),
-                    'messages' => [
-                        [
-                            'role' => 'user',
-                            'content' => $cleanText,
+
+                $response = \Http::withoutVerifying()
+                    ->timeout(60)
+                    ->withHeaders([
+                        'Content-Type' => 'application/json',
+                        'x-api-key' => $apiKey,
+                        'anthropic-version' => '2023-06-01',
+                    ])->post('https://api.anthropic.com/v1/messages', [
+                        'model' => $claudeModel,
+                        'max_tokens' => 4096,
+                        'system' => self::getSystemPrompt(),
+                        'messages' => [
+                            [
+                                'role' => 'user',
+                                'content' => $cleanText,
+                            ],
                         ],
-                    ],
-                ]);
+                    ]);
+
+                // Fallback to claude-3-7-sonnet-20250219 if experimental model name not recognized directly on Anthropic API
+                if ($response->status() === 404 && $claudeModel !== 'claude-3-7-sonnet-20250219') {
+                    $response = \Http::withoutVerifying()
+                        ->timeout(60)
+                        ->withHeaders([
+                            'Content-Type' => 'application/json',
+                            'x-api-key' => $apiKey,
+                            'anthropic-version' => '2023-06-01',
+                        ])->post('https://api.anthropic.com/v1/messages', [
+                            'model' => 'claude-3-7-sonnet-20250219',
+                            'max_tokens' => 4096,
+                            'system' => self::getSystemPrompt(),
+                            'messages' => [
+                                [
+                                    'role' => 'user',
+                                    'content' => $cleanText,
+                                ],
+                            ],
+                        ]);
+                }
 
                 if ($response->failed()) {
                     throw new Exception($response->body());
@@ -231,11 +275,65 @@ class MagicAIService
             // 3. Native OpenAI (if key starts with sk-proj- or starts with sk- and NOT sk-or-)
             if (str_starts_with($apiKey, 'sk-proj-') || (str_starts_with($apiKey, 'sk-') && ! str_starts_with($apiKey, 'sk-or-'))) {
                 $openaiModel = str_replace('openai/', '', $model);
-                $response = \Http::withHeaders([
+
+                $response = \Http::withoutVerifying()
+                    ->timeout(60)
+                    ->withHeaders([
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer '.$apiKey,
+                    ])->post('https://api.openai.com/v1/chat/completions', [
+                        'model' => $openaiModel,
+                        'messages' => [
+                            [
+                                'role' => 'system',
+                                'content' => self::getSystemPrompt(),
+                            ],
+                            [
+                                'role' => 'user',
+                                'content' => $cleanText,
+                            ],
+                        ],
+                    ]);
+
+                // Fallback to gpt-4o if the model is not found on direct OpenAI API
+                if ($response->status() === 404 && $openaiModel !== 'gpt-4o') {
+                    $response = \Http::withoutVerifying()
+                        ->timeout(60)
+                        ->withHeaders([
+                            'Content-Type' => 'application/json',
+                            'Authorization' => 'Bearer '.$apiKey,
+                        ])->post('https://api.openai.com/v1/chat/completions', [
+                            'model' => 'gpt-4o',
+                            'messages' => [
+                                [
+                                    'role' => 'system',
+                                    'content' => self::getSystemPrompt(),
+                                ],
+                                [
+                                    'role' => 'user',
+                                    'content' => $cleanText,
+                                ],
+                            ],
+                        ]);
+                }
+
+                if ($response->failed()) {
+                    throw new Exception($response->body());
+                }
+
+                return $response->json();
+            }
+
+            // 4. Default / OpenRouter (works with OpenRouter sk-or-... keys and all universal models)
+            $response = \Http::withoutVerifying()
+                ->timeout(60)
+                ->withHeaders([
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer '.$apiKey,
-                ])->post('https://api.openai.com/v1/chat/completions', [
-                    'model' => $openaiModel,
+                    'HTTP-Referer' => config('app.url', 'https://nexora.io'),
+                    'X-Title' => 'Nexora CRM',
+                ])->post(self::OPEN_ROUTER_URL, [
+                    'model' => $model,
                     'messages' => [
                         [
                             'role' => 'system',
@@ -247,33 +345,6 @@ class MagicAIService
                         ],
                     ],
                 ]);
-
-                if ($response->failed()) {
-                    throw new Exception($response->body());
-                }
-
-                return $response->json();
-            }
-
-            // 4. Default / OpenRouter (works with OpenRouter sk-or-... keys and universal models)
-            $response = \Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '.$apiKey,
-                'HTTP-Referer' => config('app.url', 'https://nexora.io'),
-                'X-Title' => 'Nexora CRM',
-            ])->post(self::OPEN_ROUTER_URL, [
-                'model' => $model,
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => self::getSystemPrompt(),
-                    ],
-                    [
-                        'role' => 'user',
-                        'content' => $cleanText,
-                    ],
-                ],
-            ]);
 
             if ($response->failed()) {
                 throw new Exception($response->body());

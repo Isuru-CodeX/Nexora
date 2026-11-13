@@ -12,33 +12,70 @@
         ))"
         method="PUT"
     >
-        <div class="nexora-animate-in flex flex-col gap-4">
+        <div class="nexora-animate-in flex flex-col gap-5">
             <div class="scroll-reactive-sticky sticky top-[60px] z-[1000] flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/85 px-6 py-4 text-sm shadow-sm backdrop-blur-md dark:border-gray-800/80 dark:bg-gray-900/85 dark:text-gray-300 transition-all duration-200">
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <x-admin::breadcrumbs
                         name="quotes.edit"
                         :entity="$quote"
                     />
 
-                    <div class="text-xl font-bold dark:text-white">
-                        @lang('admin::app.quotes.edit.title')
+                    <div class="flex flex-wrap items-center gap-3">
+                        <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+                            {{ $quote->subject ?: trans('admin::app.quotes.edit.title') }}
+                        </h1>
+
+                        <span class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-semibold text-[#5A4DB9] dark:bg-indigo-950/60 dark:text-indigo-300 border border-indigo-200/60 dark:border-indigo-800/60">
+                            #{{ $quote->id }}
+                        </span>
+
+                        @if ($quote->person)
+                            <span class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700 dark:bg-gray-800 dark:text-gray-300">
+                                <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                {{ $quote->person->name }}
+                            </span>
+                        @endif
+
+                        @if ($quote->expired_at)
+                            <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60">
+                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                                {{ core()->formatDate($quote->expired_at, 'M d, Y') }}
+                            </span>
+                        @endif
                     </div>
                 </div>
 
-                <div class="flex items-center gap-x-2.5">
-                    <div class="flex items-center gap-x-2.5">
-                        {!! view_render_event('admin.contacts.quotes.edit.save_button.before', ['quote' => $quote]) !!}
+                <div class="flex items-center gap-2.5">
+                    {!! view_render_event('admin.contacts.quotes.edit.save_button.before', ['quote' => $quote]) !!}
 
-                        <!-- Save button for person -->
-                        <button
-                            type="submit"
-                            class="primary-button"
-                        >
-                            @lang('admin::app.quotes.edit.save-btn')
-                        </button>
+                    <!-- Print PDF Action -->
+                    <a
+                        href="{{ route('admin.quotes.print', $quote->id) }}"
+                        target="_blank"
+                        class="secondary-button inline-flex items-center gap-1.5"
+                    >
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                        <span>@lang('admin::app.quotes.index.datagrid.print')</span>
+                    </a>
 
-                        {!! view_render_event('admin.contacts.quotes.edit.save_button.after', ['quote' => $quote]) !!}
-                    </div>
+                    <!-- Save button for quote -->
+                    <button
+                        type="submit"
+                        class="primary-button inline-flex items-center gap-1.5"
+                    >
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>@lang('admin::app.quotes.edit.save-btn')</span>
+                    </button>
+
+                    {!! view_render_event('admin.contacts.quotes.edit.save_button.after', ['quote' => $quote]) !!}
                 </div>
             </div>
 
@@ -56,7 +93,7 @@
             id="v-quote-template"
         >
             <div class="nexora-card flex flex-col gap-6 rounded-2xl border border-gray-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-sm dark:border-gray-800/80 dark:bg-gray-900/90 transition-all duration-300">
-                <div class="flex w-full gap-2 border-b border-gray-300 dark:border-gray-800">
+                <div class="flex flex-wrap items-center gap-2 border-b border-gray-200 pb-3 dark:border-gray-800">
                     {!! view_render_event('admin.contacts.quotes.edit.tags.before', ['quote' => $quote]) !!}
 
                     <template
@@ -66,10 +103,10 @@
                         <a
                             :href="'#' + tab.id"
                             :class="[
-                                'inline-block px-3 py-2.5 border-b-2  text-sm font-medium ',
+                                'inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200',
                                 activeTab === tab.id
-                                ? 'text-brandColor border-brandColor dark:brandColor dark:brandColor'
-                                : 'text-gray-600 dark:text-gray-300  border-transparent hover:text-gray-800 hover:border-gray-400 dark:hover:border-gray-400  dark:hover:text-white'
+                                    ? 'bg-[#5A4DB9] text-white shadow-sm shadow-[#5A4DB9]/30'
+                                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800/60 dark:hover:text-white'
                             ]"
                             @click="scrollToSection(tab.id)"
                             :text="tab.label"
@@ -95,7 +132,7 @@
                             <p class="text-sm text-gray-600 dark:text-white">@lang('admin::app.quotes.create.quote-info-info')</p>
                         </div>
 
-                        <div class="w-1/2 max-md:w-full">
+                        <div class="w-full max-w-4xl">
                             <x-admin::attributes
                                 :custom-attributes="app('Webkul\Attribute\Repositories\AttributeRepository')->findWhere([
                                     'entity_type' => 'quotes',
@@ -214,7 +251,7 @@
                             </p>
                         </div>
 
-                        <div class="w-1/2 max-md:w-full">
+                        <div class="w-full max-w-4xl">
                             <!-- Billing Address -->
                             <x-admin::attributes
                                 :custom-attributes="app('Webkul\Attribute\Repositories\AttributeRepository')->findWhere([
@@ -370,17 +407,23 @@
                 </div>
 
                 <!-- Add New Quote Item -->
-                <span
-                    class="text-md flex max-w-max cursor-pointer items-center gap-2 text-brandColor"
-                    @click="addProduct"
-                >
-                    @lang('admin::app.quotes.create.add-item')
-                </span>
+                <div>
+                    <button
+                        type="button"
+                        class="inline-flex items-center gap-2 rounded-xl border border-[#5A4DB9]/30 bg-[#5A4DB9]/10 px-4 py-2 text-sm font-semibold text-[#5A4DB9] transition-all hover:bg-[#5A4DB9] hover:text-white dark:bg-[#5A4DB9]/20 dark:text-indigo-300 dark:hover:bg-[#5A4DB9]"
+                        @click="addProduct"
+                    >
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>@lang('admin::app.quotes.create.add-item')</span>
+                    </button>
+                </div>
 
                 <div class="flex justify-end">
-                    <div class="grid w-[348px] gap-4 rounded-lg bg-gray-100 p-4 text-sm dark:bg-gray-950 dark:text-white">
-                        <div class="flex w-full justify-between gap-x-5">
-                            @lang('admin::app.quotes.create.sub-total', ['symbol' => core()->currencySymbol(config('app.currency'))])
+                    <div class="grid w-[380px] max-w-full gap-3.5 rounded-2xl border border-gray-200/80 bg-gradient-to-br from-white to-gray-50/80 p-5 shadow-sm dark:border-gray-800/80 dark:from-gray-900 dark:to-gray-950 dark:text-white">
+                        <div class="flex w-full items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+                            <span>@lang('admin::app.quotes.create.sub-total', ['symbol' => core()->currencySymbol(config('app.currency'))])</span>
 
                             <input
                                 type="hidden"
@@ -390,11 +433,11 @@
                                 readonly
                             >
 
-                            <p>@{{ subTotal }}</p>
+                            <p class="font-semibold text-gray-900 dark:text-white">@{{ subTotal }}</p>
                         </div>
 
-                        <div class="flex w-full justify-between gap-x-5">
-                            @lang('admin::app.quotes.create.total-discount', ['symbol' => core()->currencySymbol(config('app.currency'))])
+                        <div class="flex w-full items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+                            <span>@lang('admin::app.quotes.create.total-discount', ['symbol' => core()->currencySymbol(config('app.currency'))])</span>
 
                             <input
                                 type="hidden"
@@ -402,11 +445,11 @@
                                 :value="discountAmount"
                             >
 
-                            <p>@{{ discountAmount }}</p>
+                            <p class="font-semibold text-emerald-600 dark:text-emerald-400">-@{{ discountAmount }}</p>
                         </div>
 
-                        <div class="flex w-full justify-between gap-x-5">
-                            @lang('admin::app.quotes.create.total-tax', ['symbol' => core()->currencySymbol(config('app.currency'))])
+                        <div class="flex w-full items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+                            <span>@lang('admin::app.quotes.create.total-tax', ['symbol' => core()->currencySymbol(config('app.currency'))])</span>
 
                             <input
                                 type="hidden"
@@ -414,11 +457,11 @@
                                 :value="taxAmount"
                             >
 
-                            <p>@{{ taxAmount }}</p>
+                            <p class="font-semibold text-gray-900 dark:text-white">+@{{ taxAmount }}</p>
                         </div>
 
-                        <div class="flex w-full justify-between gap-x-5">
-                            @lang('admin::app.quotes.create.total-adjustment', ['symbol' => core()->currencySymbol(config('app.currency'))])
+                        <div class="flex w-full items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+                            <span>@lang('admin::app.quotes.create.total-adjustment', ['symbol' => core()->currencySymbol(config('app.currency'))])</span>
 
                             <x-admin::form.control-group.control
                                 type="inline"
@@ -432,8 +475,8 @@
                             />
                         </div>
 
-                        <div class="flex w-full justify-between gap-x-5">
-                            @lang('admin::app.quotes.create.grand-total', ['symbol' => core()->currencySymbol(config('app.currency'))])
+                        <div class="mt-2 flex w-full items-center justify-between rounded-xl bg-[#0F172A] p-3 text-white dark:bg-black/60 border border-gray-800">
+                            <span class="text-xs font-bold uppercase tracking-wider text-gray-300">@lang('admin::app.quotes.create.grand-total', ['symbol' => core()->currencySymbol(config('app.currency'))])</span>
 
                             <input
                                 type="hidden"
@@ -441,7 +484,7 @@
                                 :value="grandTotal"
                             >
 
-                            <p>@{{ grandTotal }}</p>
+                            <span class="text-lg font-extrabold text-cyan-400">@{{ grandTotal }}</span>
                         </div>
                     </div>
                 </div>

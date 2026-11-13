@@ -302,49 +302,77 @@ return [
                 'type' => 'select',
                 'channel_based' => true,
                 'depends' => 'enable:1',
+                'default' => 'google/gemini-2.5-flash',
                 'options' => [
                     [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-4-carbon',
+                        'value' => 'google/gemini-4-carbon',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-4-hydrogen',
+                        'value' => 'google/gemini-4-hydrogen',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-4-argon',
+                        'value' => 'google/gemini-4-argon',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-3-8-flash',
+                        'value' => 'google/gemini-3.8-flash',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-3-7-flash',
+                        'value' => 'google/gemini-3.7-flash',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-3-5-flash',
+                        'value' => 'google/gemini-3.5-flash',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-5-pro',
+                        'value' => 'google/gemini-2.5-pro',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-5-flash',
+                        'value' => 'google/gemini-2.5-flash',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-5-pro',
+                        'value' => 'openai/gpt-5-pro',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-5',
+                        'value' => 'openai/gpt-5',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-5-mini',
+                        'value' => 'openai/gpt-5-mini',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.o3-pro',
+                        'value' => 'openai/o3-pro',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.o3',
+                        'value' => 'openai/o3',
+                    ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4o',
                         'value' => 'openai/gpt-4o',
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4o-mini',
                         'value' => 'openai/gpt-4o-mini',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4-turbo',
-                        'value' => 'openai/gpt-4-turbo',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-sonnet-5-5',
+                        'value' => 'anthropic/claude-sonnet-5.5',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.chatgpt-4o-latest',
-                        'value' => 'openai/chatgpt-4o-latest',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-opus-5-5',
+                        'value' => 'anthropic/claude-opus-5.5',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.o3-mini',
-                        'value' => 'openai/o3-mini',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-opus-5',
+                        'value' => 'anthropic/claude-opus-5',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.o1',
-                        'value' => 'openai/o1',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-sonnet-5',
+                        'value' => 'anthropic/claude-sonnet-5',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-0-flash-001',
-                        'value' => 'google/gemini-2.0-flash-001',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-haiku-5-5',
+                        'value' => 'anthropic/claude-haiku-5.5',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-pro-1-5',
-                        'value' => 'google/gemini-pro-1.5',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-v4-pro',
+                        'value' => 'deepseek/deepseek-v4-pro',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-flash-1-5',
-                        'value' => 'google/gemini-flash-1.5',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-v4-flash',
+                        'value' => 'deepseek/deepseek-v4-flash',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-7-sonnet',
-                        'value' => 'anthropic/claude-3.7-sonnet',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-5-sonnet',
-                        'value' => 'anthropic/claude-3.5-sonnet',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-5-haiku',
-                        'value' => 'anthropic/claude-3.5-haiku',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-opus',
-                        'value' => 'anthropic/claude-3-opus',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-r1',
-                        'value' => 'deepseek/deepseek-r1',
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-chat-v3-1',
+                        'value' => 'deepseek/deepseek-chat-v3.1',
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-chat',
                         'value' => 'deepseek/deepseek-chat',
