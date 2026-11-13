@@ -20,7 +20,7 @@
   <img src="https://img.shields.io/badge/Distribution-Unrestricted-9E24B7?style=for-the-badge&logo=cube&logoColor=white" alt="Distribution Unrestricted" />
   <img src="https://img.shields.io/badge/Copyleft-None_(Permissive)-D803B3?style=for-the-badge&logo=unlock&logoColor=white" alt="Permissive" />
   <img src="https://img.shields.io/badge/Warranty-None_(AS--IS)-EF4444?style=for-the-badge&logo=shield-halved&logoColor=white" alt="AS-IS Warranty" />
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/Maintainer-Nexora_Team-10B981?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
+  <a href="https://github.com/Isuru-CodeX/Nexora"><img src="https://img.shields.io/badge/Maintainer-Nexora_Team-10B981?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
 </p>
 
 <!-- Quick Navigation Links -->
@@ -44,7 +44,7 @@
 
 ## 🌟 Plain-English Summary
 
-**Nexora** (NoxusCRM) is proudly licensed under the **MIT License**—one of the most liberal, business-friendly, and universally recognized open-source licenses ever authored.
+**Nexora** is proudly licensed under the **MIT License**—one of the most liberal, business-friendly, and universally recognized open-source licenses ever authored.
 
 Under this license, you are granted complete freedom to use, copy, modify, merge, publish, distribute, sublicense, and sell copies of Nexora, whether for personal experiments, commercial client deployments, or enterprise-scale infrastructure.
 
@@ -198,12 +198,12 @@ The MIT License text does not contain an express patent grant (unlike Apache 2.0
 
 ## 📜 Official MIT License Text
 
-Below is the official, legally binding text of the MIT License governing the **Nexora** (NoxusCRM) codebase:
+Below is the official, legally binding text of the MIT License governing the **Nexora** codebase:
 
 ```text
 MIT License
 
-Copyright (c) 2026 Nexora CRM Team (https://github.com/Isuru-CodeX/NoxusCRM)
+Copyright (c) 2026 Nexora CRM Team (https://github.com/Isuru-CodeX/Nexora)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -239,10 +239,10 @@ SOFTWARE.
 <br/>
 
 <!-- Community Links -->
-<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 

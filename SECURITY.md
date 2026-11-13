@@ -43,7 +43,7 @@
 
 ## 🛡️ Security Philosophy & Posture
 
-At **Nexora** (NoxusCRM), the security, confidentiality, and integrity of customer data and corporate operations are foundational engineering priorities. As an enterprise CRM managing mission-critical client records, sales pipelines, financial quotes, confidential correspondence, and organizational credentials, Nexora is engineered under a strict **defense-in-depth** and **zero-trust** backend philosophy:
+At **Nexora**, the security, confidentiality, and integrity of customer data and corporate operations are foundational engineering priorities. As an enterprise CRM managing mission-critical client records, sales pipelines, financial quotes, confidential correspondence, and organizational credentials, Nexora is engineered under a strict **defense-in-depth** and **zero-trust** backend philosophy:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -93,7 +93,7 @@ We deeply appreciate the efforts of security researchers, ethical hackers, and c
 You can submit reports through either of the following confidential channels:
 
 #### Method 1: GitHub Private Vulnerability Reporting (Recommended)
-1. Navigate to the official Nexora repository: [https://github.com/Isuru-CodeX/NoxusCRM](https://github.com/Isuru-CodeX/NoxusCRM).
+1. Navigate to the official Nexora repository: [https://github.com/Isuru-CodeX/Nexora](https://github.com/Isuru-CodeX/Nexora).
 2. Click the **Security** tab at the top of the repository.
 3. Select **Advisories** from the left-hand navigation.
 4. Click **Report a vulnerability** to open an encrypted private advisory draft directly with the maintainers.
@@ -342,10 +342,10 @@ We believe in acknowledging the valuable contributions of the security research 
 <br/>
 
 <!-- Community Links -->
-<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 

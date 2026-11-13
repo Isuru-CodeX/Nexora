@@ -9,7 +9,7 @@ it('renders the help and resources page with github profile links', function () 
         ->get(route('admin.help.index'))
         ->assertOk()
         ->assertSee('https://github.com/Isuru-CodeX')
-        ->assertSee('https://github.com/Isuru-CodeX/NoxusCRM')
+        ->assertSee('https://github.com/Isuru-CodeX/Nexora')
         ->assertDontSee('https://krayincrm.com')
         ->assertDontSee('https://docs.krayincrm.com');
 });

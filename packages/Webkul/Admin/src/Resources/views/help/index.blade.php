@@ -44,7 +44,7 @@
                 </a>
 
                 <a
-                    href="https://github.com/Isuru-CodeX/NoxusCRM"
+                    href="https://github.com/Isuru-CodeX/Nexora"
                     target="_blank"
                     class="secondary-button"
                 >

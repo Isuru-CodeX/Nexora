@@ -73,7 +73,7 @@ return [
                 'name' => 'website',
                 'title' => 'admin::app.configuration.index.general.general.company-info.website',
                 'type' => 'text',
-                'default' => 'https://github.com/Isuru-CodeX/NoxusCRM',
+                'default' => 'https://github.com/Isuru-CodeX/Nexora',
             ], [
                 'name' => 'address',
                 'title' => 'admin::app.configuration.index.general.general.company-info.address',
@@ -104,7 +104,7 @@ return [
                 'title' => 'admin::app.configuration.index.general.settings.footer.powered-by',
                 'type' => 'editor',
                 'depends' => 'show:1',
-                'default' => 'Powered by <span style="color: #5A4DB9; font-weight: 600;"><a href="https://github.com/Isuru-CodeX/NoxusCRM" target="_blank">Nexora CRM</a></span>.',
+                'default' => 'Powered by <span style="color: #5A4DB9; font-weight: 600;"><a href="https://github.com/Isuru-CodeX/Nexora" target="_blank">Nexora CRM</a></span>.',
                 'tinymce' => true,
             ],
         ],

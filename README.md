@@ -26,9 +26,9 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Pest%20PHP-Passing%20%E2%9C%85-10b981?style=for-the-badge&logo=pest&logoColor=white" alt="Tests" />
   <img src="https://img.shields.io/badge/Code%20Style-Laravel%20Pint-5A4DB9?style=for-the-badge&logo=laravel&logoColor=white" alt="Pint" />
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM/stargazers"><img src="https://img.shields.io/github/stars/Isuru-CodeX/NoxusCRM?style=for-the-badge&logo=github&color=F59E0B" alt="Stars" /></a>
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM/network/members"><img src="https://img.shields.io/github/forks/Isuru-CodeX/NoxusCRM?style=for-the-badge&logo=github&color=9E24B7" alt="Forks" /></a>
-  <img src="https://img.shields.io/github/repo-size/Isuru-CodeX/NoxusCRM?style=for-the-badge&color=D803B3" alt="Repo Size" />
+  <a href="https://github.com/Isuru-CodeX/Nexora/stargazers"><img src="https://img.shields.io/github/stars/Isuru-CodeX/Nexora?style=for-the-badge&logo=github&color=F59E0B" alt="Stars" /></a>
+  <a href="https://github.com/Isuru-CodeX/Nexora/network/members"><img src="https://img.shields.io/github/forks/Isuru-CodeX/Nexora?style=for-the-badge&logo=github&color=9E24B7" alt="Forks" /></a>
+  <img src="https://img.shields.io/github/repo-size/Isuru-CodeX/Nexora?style=for-the-badge&color=D803B3" alt="Repo Size" />
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-01C7F4?style=for-the-badge" alt="MIT License" /></a>
 </p>
 
@@ -57,7 +57,7 @@
 
 ## 🌟 Overview
 
-**Nexora** (NoxusCRM) is an enterprise-grade, open-source Customer Relationship Management (CRM) ecosystem engineered for growing businesses, high-velocity sales teams, and modern enterprises seeking complete data sovereignty, zero seat licensing fees, and an ultra-modern user experience.
+**Nexora** is an enterprise-grade, open-source Customer Relationship Management (CRM) ecosystem engineered for growing businesses, high-velocity sales teams, and modern enterprises seeking complete data sovereignty, zero seat licensing fees, and an ultra-modern user experience.
 
 Crafted around a custom multi-stop gradient identity (**`#01C7F4`** Cyan $\rightarrow$ **`#2590D6`** Blue $\rightarrow$ **`#5A4DB9`** Indigo $\rightarrow$ **`#9E24B7`** Violet $\rightarrow$ **`#D803B3`** Magenta), Nexora combines high-throughput Laravel 12 backend operations with an interactive Vue.js 3 / Tailwind CSS frontend:
 
@@ -447,7 +447,7 @@ Choose either MySQL or MariaDB:
 <!-- Terminal Animated Command Stream (Styled in Logo Blue #2590D6) -->
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=14&duration=2500&pause=600&color=2590D6&center=true&vCenter=true&width=750&lines=%24+git+clone+https%3A%2F%2Fgithub.com%2FIsuru-CodeX%2FNoxusCRM.git;%24+composer+install+--optimize-autoloader;%24+php+artisan+nexora%3Ainstall+%E2%94%80%E2%94%80%E2%96%BA+Database+Migrated+%26+Seeded;%24+php+artisan+serve+%E2%94%80%E2%94%80%E2%96%BA+Application+Ready+at+http%3A%2F%2F127.0.0.1%3A8000" alt="Terminal Command Stream" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=14&duration=2500&pause=600&color=2590D6&center=true&vCenter=true&width=750&lines=%24+git+clone+https%3A%2F%2Fgithub.com%2FIsuru-CodeX%2FNexora.git;%24+composer+install+--optimize-autoloader;%24+php+artisan+nexora%3Ainstall+%E2%94%80%E2%94%80%E2%96%BA+Database+Migrated+%26+Seeded;%24+php+artisan+serve+%E2%94%80%E2%94%80%E2%96%BA+Application+Ready+at+http%3A%2F%2F127.0.0.1%3A8000" alt="Terminal Command Stream" />
 
 </div>
 
@@ -456,8 +456,8 @@ Choose either MySQL or MariaDB:
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/Isuru-CodeX/NoxusCRM.git
-cd NoxusCRM
+git clone https://github.com/Isuru-CodeX/Nexora.git
+cd Nexora
 ```
 
 ### Step 2: Install PHP Dependencies
@@ -908,10 +908,10 @@ Nexora CRM is dedicated to fostering an open, welcoming, diverse, and harassment
 <br/>
 
 <!-- Community Links -->
-<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 
@@ -929,7 +929,7 @@ Nexora CRM is dedicated to fostering an open, welcoming, diverse, and harassment
 
 ## 📄 License
 
-**Nexora (NoxusCRM)** is open-source software distributed under the [MIT License](LICENSE.md). For commercial use rights, modification guidelines, and enterprise adoption policies, see the comprehensive [LICENSE.md](LICENSE.md) documentation.  
+**Nexora** is open-source software distributed under the [MIT License](LICENSE.md). For commercial use rights, modification guidelines, and enterprise adoption policies, see the comprehensive [LICENSE.md](LICENSE.md) documentation.  
 Copyright &copy; 2026 **Nexora CRM Team**. All rights reserved.
 
 <div align="center">

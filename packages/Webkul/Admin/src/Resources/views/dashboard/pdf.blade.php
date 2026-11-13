@@ -595,7 +595,7 @@
                         Powered by <strong>Nexora CRM</strong> • Enterprise Pipeline Management & Sales Intelligence
                     </td>
                     <td class="text-right">
-                        https://github.com/Isuru-CodeX/NoxusCRM
+                        https://github.com/Isuru-CodeX/Nexora
                     </td>
                 </tr>
             </table>

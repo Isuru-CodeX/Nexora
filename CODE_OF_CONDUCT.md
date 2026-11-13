@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/Community-Inclusive_%26_Welcoming-2590D6?style=for-the-badge&logo=discourse&logoColor=white" alt="Community Status" />
   <img src="https://img.shields.io/badge/Harassment-Zero_Tolerance-5A4DB9?style=for-the-badge&logo=shield&logoColor=white" alt="Zero Tolerance" />
   <img src="https://img.shields.io/badge/Enforcement-Tiered_Matrix-9E24B7?style=for-the-badge&logo=gavel&logoColor=white" alt="Tiered Enforcement" />
-  <a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/Maintainer-Nexora_Team-D803B3?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
+  <a href="https://github.com/Isuru-CodeX/Nexora"><img src="https://img.shields.io/badge/Maintainer-Nexora_Team-D803B3?style=for-the-badge&logo=github&logoColor=white" alt="Maintainer" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-10B981?style=for-the-badge" alt="MIT License" /></a>
 </p>
 
@@ -43,7 +43,7 @@
 
 ## 🌟 Our Pledge
 
-At **Nexora** (NoxusCRM), we are committed to providing a friendly, safe, welcoming, and harassment-free environment for all participants, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, religion, or sexual identity and orientation.
+At **Nexora**, we are committed to providing a friendly, safe, welcoming, and harassment-free environment for all participants, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, religion, or sexual identity and orientation.
 
 We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community where every engineer, designer, documentation writer, bug reporter, and open-source enthusiast feels empowered to participate, innovate, and thrive.
 
@@ -123,7 +123,7 @@ The following behaviors are strictly prohibited within any Nexora communication 
 
 This Code of Conduct applies within all official project spaces, including:
 
-* The official GitHub repository (`Isuru-CodeX/NoxusCRM`)
+* The official GitHub repository (`Isuru-CodeX/Nexora`)
 * GitHub Pull Requests, Issues, Commit Messages, and Discussions
 * Project Discord servers, Slack channels, and chat groups
 * Community social media interactions, webinars, and virtual meetups
@@ -248,10 +248,10 @@ Community impact guidelines and enforcement procedures are inspired by standard 
 <br/>
 
 <!-- Community Links -->
-<a href="https://github.com/Isuru-CodeX/NoxusCRM"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
-<a href="https://github.com/Isuru-CodeX/NoxusCRM/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repo" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/issues"><img src="https://img.shields.io/badge/Issues-Report_Bug-EF4444?style=for-the-badge&logo=github&logoColor=white" alt="Issues" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/discussions"><img src="https://img.shields.io/badge/Discussions-Join_Community-8B5CF6?style=for-the-badge&logo=github&logoColor=white" alt="Discussions" /></a>
+<a href="https://github.com/Isuru-CodeX/Nexora/security"><img src="https://img.shields.io/badge/Security-Advisories-06B6D4?style=for-the-badge&logo=shield&logoColor=white" alt="Security" /></a>
 
 <br/><br/>
 
