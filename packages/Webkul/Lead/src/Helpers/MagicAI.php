@@ -27,23 +27,30 @@ class MagicAI
             return self::errorHandler($aiData['error']);
         }
 
-        $content = strip_tags($aiData['choices'][0]['message']['content']);
+        $rawContent = $aiData['choices'][0]['message']['content'] ?? '';
 
-        if (empty($content)) {
+        if (empty($rawContent)) {
             return self::errorHandler(trans('admin::app.leads.file.data-not-found'));
         }
 
-        preg_match('/\{.*\}/s', $content, $matches);
+        // 1. Strip reasoning tags from reasoning models (e.g. <think>...</think> in DeepSeek R1)
+        $cleanContent = preg_replace('/<think>[\s\S]*?<\/think>/i', '', $rawContent);
 
-        if (isset($matches[0])) {
+        // 2. Strip markdown codeblock fences (```json ... ```)
+        if (preg_match('/```(?:json)?\s*([\s\S]*?)\s*```/i', $cleanContent, $codeMatches)) {
+            $cleanContent = $codeMatches[1];
+        }
+
+        // 3. Extract JSON object
+        if (preg_match('/\{[\s\S]*\}/', $cleanContent, $matches)) {
             $jsonString = $matches[0];
         } else {
-            return self::errorHandler(trans('admin::app.leads.file.invalid-response'));
+            $jsonString = $cleanContent;
         }
 
         $finalData = json_decode($jsonString);
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (json_last_error() !== JSON_ERROR_NONE || ! is_object($finalData)) {
             return self::errorHandler(trans('admin::app.leads.file.invalid-format'));
         }
 

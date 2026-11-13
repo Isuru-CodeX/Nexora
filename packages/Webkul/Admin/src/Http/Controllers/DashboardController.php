@@ -118,14 +118,20 @@ class DashboardController extends Controller
     {
         $path = core()->getConfigData('general.general.admin_logo.logo_image');
 
-        if (! $path || ! Storage::disk('public')->exists($path)) {
-            return null;
+        if ($path && Storage::disk('public')->exists($path)) {
+            $mimeType = Storage::disk('public')->mimeType($path);
+            $contents = base64_encode(Storage::disk('public')->get($path));
+
+            return "data:{$mimeType};base64,{$contents}";
         }
 
-        $mimeType = Storage::disk('public')->mimeType($path);
+        $defaultLogo = public_path('images/nexora-logo-dark.png');
+        if (file_exists($defaultLogo)) {
+            $contents = base64_encode(file_get_contents($defaultLogo));
 
-        $contents = base64_encode(Storage::disk('public')->get($path));
+            return "data:image/png;base64,{$contents}";
+        }
 
-        return "data:{$mimeType};base64,{$contents}";
+        return null;
     }
 }

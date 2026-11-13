@@ -116,17 +116,23 @@
                 }
             }
 
+            var __nexoraLoadStart = Date.now();
+
             function hideNexoraPreloader() {
-                var loader = document.getElementById('nexora-preloader');
-                if (loader) {
-                    loader.style.opacity = '0';
-                    loader.style.pointerEvents = 'none';
-                    setTimeout(function () {
-                        if (loader && loader.parentNode) {
-                            loader.parentNode.removeChild(loader);
-                        }
-                    }, 450);
-                }
+                var elapsed = Date.now() - __nexoraLoadStart;
+                var remainingCooldown = Math.max(0, 1000 - elapsed); // Ensure minimum 1 second cooldown
+                setTimeout(function () {
+                    var loader = document.getElementById('nexora-preloader');
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        loader.style.pointerEvents = 'none';
+                        setTimeout(function () {
+                            if (loader && loader.parentNode) {
+                                loader.parentNode.removeChild(loader);
+                            }
+                        }, 450);
+                    }
+                }, remainingCooldown);
             }
 
             window.__hideNexoraPreloader = hideNexoraPreloader;
@@ -139,11 +145,11 @@
             });
 
             window.addEventListener('load', function () {
-                setTimeout(hideNexoraPreloader, 60);
+                hideNexoraPreloader();
             });
 
             // Safety timeout so preloader never blocks page
-            setTimeout(hideNexoraPreloader, 2600);
+            setTimeout(hideNexoraPreloader, 4000);
         })();
     </script>
 
@@ -268,17 +274,17 @@
 
             <div class="flex min-h-[calc(100vh-62px)] max-w-full flex-1 flex-col bg-[#F4F7FB] pt-3 transition-all duration-300 dark:bg-transparent">
                 <!-- Page Content Blade Component -->
-                <div class="nexora-animate-in px-3 py-2 sm:px-4 sm:py-3 lg:px-6 {{ $showPoweredBy ? 'pb-[72px]' : 'pb-4' }} transition-all duration-300 lg:ltr:pl-[215px] lg:group-[.sidebar-collapsed]/container:ltr:pl-[85px] lg:rtl:pr-[215px] lg:group-[.sidebar-collapsed]/container:rtl:pr-[85px]">
+                <div class="nexora-animate-in flex-1 px-3 py-2 sm:px-4 sm:py-3 lg:px-6 pb-6 transition-all duration-300 lg:ltr:pl-[215px] lg:group-[.sidebar-collapsed]/container:ltr:pl-[85px] lg:rtl:pr-[215px] lg:group-[.sidebar-collapsed]/container:rtl:pr-[85px]">
                     {{ $slot }}
                 </div>
 
                 @if ($showPoweredBy)
-                    <!-- Powered By -->
-                    <div class="fixed bottom-0 left-0 right-0 z-1">
-                        <div class="border-t bg-white py-5 text-center text-sm font-normal dark:border-gray-800 dark:bg-gray-900 dark:text-white max-md:py-3">
+                    <!-- Powered By Footer (In-flow at bottom, zero content overlap) -->
+                    <footer class="mt-auto w-full transition-all duration-300 lg:ltr:pl-[200px] lg:group-[.sidebar-collapsed]/container:ltr:pl-[70px] lg:rtl:pr-[200px] lg:group-[.sidebar-collapsed]/container:rtl:pr-[70px]">
+                        <div class="border-t border-gray-200/80 bg-white/70 backdrop-blur-sm py-4 text-center text-xs font-medium text-gray-500 dark:border-gray-800/80 dark:bg-gray-900/70 dark:text-gray-400">
                             <p>{!! core()->sanitizeHtml(core()->getConfigData('general.settings.footer.label')) !!}</p>
                         </div>
-                    </div>
+                    </footer>
                 @endif
             </div>
         </div>
@@ -340,17 +346,25 @@
                 return {
                     isVisible: false,
                     message: 'Loading...',
+                    shownAt: 0,
+                    hideTimeout: null,
                 };
             },
 
             mounted() {
                 this.$emitter?.on('show-action-loader', (msg) => {
+                    clearTimeout(this.hideTimeout);
                     this.message = msg || 'Processing...';
                     this.isVisible = true;
+                    this.shownAt = Date.now();
                 });
 
                 this.$emitter?.on('hide-action-loader', () => {
-                    this.isVisible = false;
+                    var elapsed = Date.now() - (this.shownAt || 0);
+                    var remaining = Math.max(0, 1000 - elapsed); // Minimum 1 second display cooldown
+                    this.hideTimeout = setTimeout(() => {
+                        this.isVisible = false;
+                    }, remaining);
                 });
             },
         });

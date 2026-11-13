@@ -92,17 +92,23 @@
                 }
             }
 
+            var __nexoraLoadStart = Date.now();
+
             function hideNexoraPreloader() {
-                var loader = document.getElementById('nexora-preloader');
-                if (loader) {
-                    loader.style.opacity = '0';
-                    loader.style.pointerEvents = 'none';
-                    setTimeout(function () {
-                        if (loader && loader.parentNode) {
-                            loader.parentNode.removeChild(loader);
-                        }
-                    }, 450);
-                }
+                var elapsed = Date.now() - __nexoraLoadStart;
+                var remainingCooldown = Math.max(0, 1000 - elapsed);
+                setTimeout(function () {
+                    var loader = document.getElementById('nexora-preloader');
+                    if (loader) {
+                        loader.style.opacity = '0';
+                        loader.style.pointerEvents = 'none';
+                        setTimeout(function () {
+                            if (loader && loader.parentNode) {
+                                loader.parentNode.removeChild(loader);
+                            }
+                        }, 450);
+                    }
+                }, remainingCooldown);
             }
 
             window.__hideNexoraPreloader = hideNexoraPreloader;
@@ -115,10 +121,10 @@
             });
 
             window.addEventListener('load', function () {
-                setTimeout(hideNexoraPreloader, 60);
+                hideNexoraPreloader();
             });
 
-            setTimeout(hideNexoraPreloader, 2600);
+            setTimeout(hideNexoraPreloader, 4000);
         })();
     </script>
 

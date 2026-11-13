@@ -43,38 +43,42 @@
             <div>
                 <div class="grid gap-1">
                     <!-- Title of the Main Card -->
-                    <p class="font-semibold text-gray-600 dark:text-gray-300">
+                    <p class="text-base font-bold text-gray-800 dark:text-white">
                         {{ $item->getName() }}
                     </p>
 
                     <!-- Info of the Main Card -->
-                    <p class="text-gray-600 dark:text-gray-300">
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
                         {{ $item->getInfo() }}
                     </p>
                 </div>
 
-                <div class="box-shadow max-1580:grid-cols-3 mt-2 grid grid-cols-4 flex-wrap justify-between gap-x-12 gap-y-6 rounded bg-white p-4 dark:bg-gray-900 max-xl:grid-cols-2 max-lg:gap-y-4 max-sm:grid-cols-1">
+                <div class="mt-3 grid grid-cols-4 max-1580:grid-cols-3 max-xl:grid-cols-2 max-sm:grid-cols-1 gap-4 rounded-2xl border border-gray-200/80 bg-white/80 p-5 shadow-sm backdrop-blur-sm dark:border-gray-800/80 dark:bg-gray-900/80">
                     <!-- Menus cards -->
                     @foreach ($item->getChildren() as $key => $child)
                         <a 
-                            class="flex max-w-[360px] items-center gap-2 rounded-lg p-2 transition-all hover:bg-gray-100 dark:hover:bg-gray-950"
+                            class="group relative flex items-center gap-3.5 rounded-xl border border-transparent p-3 transition-all duration-200 hover:border-[#5A4DB9]/30 hover:bg-gray-50/90 hover:shadow-sm dark:hover:border-[#5A4DB9]/40 dark:hover:bg-gray-800/70"
                             href="{{ route('admin.configuration.index', ($item->getKey() . '/' . $key)) }}"
                         >
                             @if ($icon = $child->getIcon())
-                                <div class="rounded-lg bg-gray-100 p-3 dark:bg-gray-800">
-                                    <i class="{{ $child->getIcon() }} text-3xl "></i>
+                                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-[#5A4DB9] transition-transform duration-200 group-hover:scale-105 dark:bg-gray-800 dark:text-indigo-400">
+                                    <i class="{{ $child->getIcon() }} text-2xl"></i>
                                 </div>
                             @endif
 
-                            <div class="grid">
-                                <p class="mb-1.5 text-base font-semibold text-gray-800 dark:text-white">
+                            <div class="grid flex-1">
+                                <p class="mb-1 text-sm font-semibold text-gray-800 transition-colors group-hover:text-[#5A4DB9] dark:text-white dark:group-hover:text-indigo-400">
                                     {{ $child->getName() }}
                                 </p>
                                 
-                                <p class="text-xs text-gray-600 dark:text-gray-300">
+                                <p class="text-xs text-gray-500 line-clamp-2 dark:text-gray-400">
                                     {{ $child->getInfo() }}
                                 </p>
                             </div>
+
+                            <svg class="h-4 w-4 text-gray-400 opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-[#5A4DB9] dark:group-hover:text-indigo-400 ltr:inline rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
                         </a>
                     @endforeach
                 </div>

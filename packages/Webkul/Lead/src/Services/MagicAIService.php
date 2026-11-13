@@ -145,10 +145,7 @@ class MagicAIService
     private static function ask($prompt, $model, $apiKey)
     {
         try {
-            $response = \Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '.$apiKey,
-            ])->post(self::OPEN_ROUTER_URL, [
+            $payload = [
                 'model' => $model,
                 'messages' => [
                     [
@@ -164,7 +161,17 @@ class MagicAIService
                         ],
                     ],
                 ],
-            ]);
+            ];
+
+            // Request json format for supported models
+            if (! str_contains($model, 'claude') && ! str_contains($model, 'anthropic')) {
+                $payload['response_format'] = ['type' => 'json_object'];
+            }
+
+            $response = \Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$apiKey,
+            ])->post(self::OPEN_ROUTER_URL, $payload);
 
             if ($response->failed()) {
                 throw new Exception($response->body());
@@ -173,12 +180,13 @@ class MagicAIService
             $data = $response->json();
 
             if (isset($data['error'])) {
-                throw new Exception($data['error']['message']);
+                $errorMsg = is_array($data['error']) ? ($data['error']['message'] ?? json_encode($data['error'])) : $data['error'];
+                throw new Exception($errorMsg);
             }
 
             return $data;
         } catch (Exception $e) {
-            return ['error' => trans('admin::app.leads.file.insufficient-info')];
+            return ['error' => $e->getMessage() ?: trans('admin::app.leads.file.insufficient-info')];
         }
     }
 

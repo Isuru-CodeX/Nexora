@@ -48,6 +48,40 @@ return [
             ],
         ],
     ], [
+        'key' => 'general.general.company_info',
+        'name' => 'admin::app.configuration.index.general.general.company-info.title',
+        'info' => 'admin::app.configuration.index.general.general.company-info.info',
+        'sort' => 3,
+        'fields' => [
+            [
+                'name' => 'name',
+                'title' => 'admin::app.configuration.index.general.general.company-info.name',
+                'type' => 'text',
+                'default' => 'Nexora Technologies Inc.',
+            ], [
+                'name' => 'email',
+                'title' => 'admin::app.configuration.index.general.general.company-info.email',
+                'type' => 'text',
+                'default' => 'support@nexora.io',
+                'validation' => 'email',
+            ], [
+                'name' => 'phone',
+                'title' => 'admin::app.configuration.index.general.general.company-info.phone',
+                'type' => 'text',
+                'default' => '+1 (800) 555-0199',
+            ], [
+                'name' => 'website',
+                'title' => 'admin::app.configuration.index.general.general.company-info.website',
+                'type' => 'text',
+                'default' => 'https://github.com/Isuru-CodeX/NoxusCRM',
+            ], [
+                'name' => 'address',
+                'title' => 'admin::app.configuration.index.general.general.company-info.address',
+                'type' => 'textarea',
+                'default' => '100 Silicon Vista Blvd, Suite 400, San Francisco, CA 94107',
+            ],
+        ],
+    ], [
         'key' => 'general.settings',
         'name' => 'admin::app.configuration.index.general.settings.title',
         'info' => 'admin::app.configuration.index.general.settings.info',
@@ -70,7 +104,7 @@ return [
                 'title' => 'admin::app.configuration.index.general.settings.footer.powered-by',
                 'type' => 'editor',
                 'depends' => 'show:1',
-                'default' => 'Powered by <span style="color: rgb(90, 77, 185);"><a href="https://github.com/isuru-rathnayaka/nexora" target="_blank">Nexora</a></span>.',
+                'default' => 'Powered by <span style="color: #5A4DB9; font-weight: 600;"><a href="https://github.com/Isuru-CodeX/NoxusCRM" target="_blank">Nexora CRM</a></span>.',
                 'tinymce' => true,
             ],
         ],
@@ -271,16 +305,43 @@ return [
                 'options' => [
                     [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4o',
-                        'value' => 'openai/chatgpt-4o-latest',
+                        'value' => 'openai/gpt-4o',
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4o-mini',
                         'value' => 'openai/gpt-4o-mini',
                     ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.o3-mini',
+                        'value' => 'openai/o3-mini',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.o1',
+                        'value' => 'openai/o1',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-5-pro',
+                        'value' => 'google/gemini-2.5-pro',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-5-flash',
+                        'value' => 'google/gemini-2.5-flash',
+                    ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-0-flash-001',
                         'value' => 'google/gemini-2.0-flash-001',
                     ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-7-sonnet',
+                        'value' => 'anthropic/claude-3.7-sonnet',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-5-sonnet',
+                        'value' => 'anthropic/claude-3.5-sonnet',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-5-haiku',
+                        'value' => 'anthropic/claude-3.5-haiku',
+                    ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-r1',
-                        'value' => 'deepseek/deepseek-r1-distill-llama-8b',
+                        'value' => 'deepseek/deepseek-r1',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-chat',
+                        'value' => 'deepseek/deepseek-chat',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.llama-3-3-70b-instruct',
+                        'value' => 'meta-llama/llama-3.3-70b-instruct',
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.llama-3-2-3b-instruct',
                         'value' => 'meta-llama/llama-3.2-3b-instruct',
