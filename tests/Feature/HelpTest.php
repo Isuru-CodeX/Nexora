@@ -22,5 +22,5 @@ it('shows the help page to an authenticated admin', function () {
         $response->assertSee($translation, false);
     }
 
-    $response->assertSee('krayincrm.com/cloud-hosting', false);
+    $response->assertSee('github.com/Isuru-CodeX', false);
 });
