@@ -10,9 +10,9 @@
         :action="route('admin.settings.pipelines.update', $pipeline->id)"
         method="POST"
     >
-        <!-- Header section -->
-        <div class="flex flex-col gap-2 rounded-lg border border-gray-300 bg-white text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
-            <div class="flex items-center justify-between px-4 py-2">
+        <div class="nexora-animate-in flex flex-col gap-4">
+            <!-- Header section -->
+            <div class="scroll-reactive-sticky sticky top-[60px] z-[1000] flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/85 px-6 py-4 text-sm shadow-sm backdrop-blur-md dark:border-gray-800/80 dark:bg-gray-900/85 dark:text-gray-300 transition-all duration-200">
                 <div class="flex flex-col gap-2">
                     {!! view_render_event('admin.settings.pipelines.edit.breadcrumbs.before', ['pipeline' => $pipeline]) !!}
 
@@ -47,7 +47,8 @@
                 </div>
             </div>
 
-            <div class="flex gap-4 border-t border-gray-300 px-4 py-2 align-top dark:border-gray-800 max-sm:flex-wrap">
+            <div class="nexora-card flex flex-col gap-6 rounded-2xl border border-gray-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-sm dark:border-gray-800/80 dark:bg-gray-900/90 transition-all duration-300">
+                <div class="flex gap-4 align-top max-sm:flex-wrap">
                 {!! view_render_event('admin.settings.pipelines.edit.form.name.before', ['pipeline' => $pipeline]) !!}
 
                 <!-- Pipeline Name -->
@@ -124,6 +125,7 @@
             <v-stages-component>
                 <x-admin::shimmer.pipelines.kanban />
             </v-stages-component>
+            </div>
         </div>
     </x-admin::form>
 

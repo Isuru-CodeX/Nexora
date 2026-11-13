@@ -39,14 +39,14 @@
         <template v-else>
             {!! view_render_event('admin.components.activities.content.before') !!}
 
-            <div class="rounded-md border border-gray-300 bg-white dark:border-gray-800 dark:bg-gray-900">
-                <div class="flex flex-wrap gap-2 border-b border-gray-300 dark:border-gray-800">
+            <div class="nexora-card rounded-2xl border border-gray-200/80 bg-white/90 shadow-sm backdrop-blur-sm dark:border-gray-800/80 dark:bg-gray-900/90 overflow-hidden transition-all duration-300">
+                <div class="flex flex-wrap gap-1 border-b border-gray-200/80 bg-gray-50/50 px-4 pt-2 dark:border-gray-800/80 dark:bg-gray-950/40">
                     {!! view_render_event('admin.components.activities.content.types.before') !!}
 
                     <div
                         v-for="type in types"
-                        class="cursor-pointer px-3 py-2.5 text-sm font-medium dark:text-white"
-                        :class="{'border-brandColor border-b-2 !text-brandColor transition': selectedType == type.name }"
+                        class="cursor-pointer rounded-t-xl px-4 py-3 text-sm font-semibold transition-all duration-200 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                        :class="{'border-b-2 border-brandColor !text-brandColor dark:!text-cyan-400 bg-white dark:bg-gray-900 shadow-sm': selectedType == type.name }"
                         @click="onTabChange(type.name)"
                     >
                         @{{ type.label }}

@@ -10,8 +10,8 @@
         :action="route('admin.activities.update', $activity->id)"
         method="PUT"
     >
-        <div class="flex flex-col gap-4">
-            <div class="scroll-reactive-sticky sticky top-[60px] z-[1000] flex items-center justify-between rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+        <div class="nexora-animate-in flex flex-col gap-4">
+            <div class="scroll-reactive-sticky sticky top-[60px] z-[1000] flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/85 px-6 py-4 text-sm shadow-sm backdrop-blur-md dark:border-gray-800/80 dark:bg-gray-900/85 dark:text-gray-300 transition-all duration-200">
                 <div class="flex flex-col gap-2">
                     <!-- Breadcrumbs -->
                     <x-admin::breadcrumbs
@@ -46,7 +46,7 @@
             <!-- Form Content -->
             <div class="flex gap-2.5 max-xl:flex-wrap-reverse">
                 <!-- Left sub-component -->
-                <div class="box-shadow flex-1 gap-2 rounded-lg border border-gray-300 bg-white p-4 dark:border-gray-800 dark:bg-gray-900 max-xl:flex-auto">
+                <div class="nexora-card flex-1 gap-4 rounded-2xl border border-gray-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-sm dark:border-gray-800/80 dark:bg-gray-900/90 max-xl:flex-auto transition-all duration-300">
                     {!! view_render_event('admin.activities.edit.form_controls.before') !!}
 
                     <!-- Schedule Date -->

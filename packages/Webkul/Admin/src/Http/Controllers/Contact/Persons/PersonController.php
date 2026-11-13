@@ -84,6 +84,14 @@ class PersonController extends Controller
     {
         $person = $this->personRepository->findOrFail($id);
 
+        $person->loadMissing([
+            'organization',
+            'leads.stage',
+            'leads.pipeline',
+            'quotes',
+            'tags',
+        ]);
+
         $this->preventUnauthorizedAccess($person->user_id);
 
         return view('admin::contacts.persons.view', compact('person'));

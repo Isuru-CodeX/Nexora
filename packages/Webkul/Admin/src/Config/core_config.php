@@ -310,20 +310,26 @@ return [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4o-mini',
                         'value' => 'openai/gpt-4o-mini',
                     ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gpt-4-turbo',
+                        'value' => 'openai/gpt-4-turbo',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.chatgpt-4o-latest',
+                        'value' => 'openai/chatgpt-4o-latest',
+                    ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.o3-mini',
                         'value' => 'openai/o3-mini',
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.o1',
                         'value' => 'openai/o1',
                     ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-5-pro',
-                        'value' => 'google/gemini-2.5-pro',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-5-flash',
-                        'value' => 'google/gemini-2.5-flash',
-                    ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-2-0-flash-001',
                         'value' => 'google/gemini-2.0-flash-001',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-pro-1-5',
+                        'value' => 'google/gemini-pro-1.5',
+                    ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.gemini-flash-1-5',
+                        'value' => 'google/gemini-flash-1.5',
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-7-sonnet',
                         'value' => 'anthropic/claude-3.7-sonnet',
@@ -334,6 +340,9 @@ return [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-5-haiku',
                         'value' => 'anthropic/claude-3.5-haiku',
                     ], [
+                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.claude-3-opus',
+                        'value' => 'anthropic/claude-3-opus',
+                    ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.deepseek-r1',
                         'value' => 'deepseek/deepseek-r1',
                     ], [
@@ -342,12 +351,6 @@ return [
                     ], [
                         'title' => 'admin::app.configuration.index.magic-ai.settings.models.llama-3-3-70b-instruct',
                         'value' => 'meta-llama/llama-3.3-70b-instruct',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.llama-3-2-3b-instruct',
-                        'value' => 'meta-llama/llama-3.2-3b-instruct',
-                    ], [
-                        'title' => 'admin::app.configuration.index.magic-ai.settings.models.grok-2-1212',
-                        'value' => 'x-ai/grok-2-1212',
                     ],
                 ],
             ], [

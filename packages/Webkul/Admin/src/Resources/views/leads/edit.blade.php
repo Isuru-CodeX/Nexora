@@ -11,8 +11,8 @@
         :action="route('admin.leads.update', $lead->id)"
         method="PUT"
     >
-        <div class="flex flex-col gap-4">
-            <div class="scroll-reactive-sticky sticky top-[60px] z-[1000] flex items-center justify-between rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
+        <div class="nexora-animate-in flex flex-col gap-4">
+            <div class="scroll-reactive-sticky sticky top-[60px] z-[1000] flex items-center justify-between rounded-2xl border border-gray-200/80 bg-white/85 px-6 py-4 text-sm shadow-sm backdrop-blur-md dark:border-gray-800/80 dark:bg-gray-900/85 dark:text-gray-300 transition-all duration-200">
                 <div class="flex flex-col gap-2">
                     <x-admin::breadcrumbs 
                         name="leads.edit" 
@@ -61,8 +61,8 @@
             type="text/x-template"
             id="v-lead-edit-template"
         >
-            <div class="box-shadow flex flex-col gap-4 rounded-lg border border-gray-300 bg-white dark:border-gray-800 dark:bg-gray-900">
-                <div class="flex gap-2 border-b border-gray-300 dark:border-gray-800">
+            <div class="nexora-card flex flex-col gap-4 rounded-2xl border border-gray-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-sm dark:border-gray-800/80 dark:bg-gray-900/90 transition-all duration-300">
+                <div class="flex gap-2 border-b border-gray-200/80 dark:border-gray-800/80">
                     <!-- Tabs -->
                     <template v-for="tab in tabs" :key="tab.id">
                         {!! view_render_event('admin.leads.edit.tabs.before', ['lead' => $lead]) !!}
@@ -70,10 +70,10 @@
                         <a
                             :href="'#' + tab.id"
                             :class="[
-                                'inline-block px-3 py-2.5 border-b-2  text-sm font-medium ',
+                                'inline-block px-4 py-2.5 border-b-2 text-sm font-semibold rounded-t-lg transition-all duration-150',
                                 activeTab === tab.id
-                                ? 'text-brandColor border-brandColor dark:brandColor dark:brandColor'
-                                : 'text-gray-600 dark:text-gray-300  border-transparent hover:text-gray-800 hover:border-gray-400 dark:hover:border-gray-400  dark:hover:text-white'
+                                ? 'text-brandColor border-brandColor dark:text-cyan-400 dark:border-cyan-400 bg-brandColor/5 dark:bg-cyan-500/10'
+                                : 'text-gray-600 dark:text-gray-400 border-transparent hover:text-gray-900 hover:border-gray-300 dark:hover:text-white'
                             ]"
                             @click="scrollToSection(tab.id)"
                             :text="tab.label"

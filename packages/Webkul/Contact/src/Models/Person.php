@@ -13,6 +13,7 @@ use Webkul\Attribute\Traits\CustomAttribute;
 use Webkul\Contact\Contracts\Person as PersonContract;
 use Webkul\Contact\Database\Factories\PersonFactory;
 use Webkul\Lead\Models\LeadProxy;
+use Webkul\Quote\Models\QuoteProxy;
 use Webkul\Tag\Models\TagProxy;
 use Webkul\User\Models\UserProxy;
 
@@ -97,6 +98,14 @@ class Person extends Model implements PersonContract
     public function leads(): HasMany
     {
         return $this->hasMany(LeadProxy::modelClass(), 'person_id');
+    }
+
+    /**
+     * Get the quotes for the person.
+     */
+    public function quotes(): HasMany
+    {
+        return $this->hasMany(QuoteProxy::modelClass(), 'person_id');
     }
 
     /**

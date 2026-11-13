@@ -140,38 +140,140 @@ class MagicAIService
     }
 
     /**
-     * Send prompt request to AI for processing.
+     * Send prompt request to AI for processing with multi-provider support.
+     * Supports direct Google Gemini keys (AIza...), OpenAI keys (sk-...), Anthropic keys (sk-ant-...),
+     * and OpenRouter universal router keys (sk-or-...).
      */
     private static function ask($prompt, $model, $apiKey)
     {
         try {
-            $payload = [
+            $apiKey = trim($apiKey);
+            $cleanText = is_array($prompt) ? ($prompt[0] ?? '') : $prompt;
+
+            // 1. Native Google Gemini (if key starts with AIza...)
+            if (str_starts_with($apiKey, 'AIza')) {
+                $geminiModel = str_replace('google/', '', $model);
+                if (! in_array($geminiModel, ['gemini-2.0-flash-001', 'gemini-2.0-flash', 'gemini-1.5-pro', 'gemini-1.5-flash', 'gemini-pro-1.5', 'gemini-flash-1.5'])) {
+                    $geminiModel = 'gemini-2.0-flash';
+                }
+                $geminiModel = str_replace(['-001', 'pro-1.5', 'flash-1.5'], ['', '1.5-pro', '1.5-flash'], $geminiModel);
+
+                $geminiUrl = "https://generativelanguage.googleapis.com/v1beta/models/{$geminiModel}:generateContent?key={$apiKey}";
+                $response = \Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                ])->post($geminiUrl, [
+                    'system_instruction' => [
+                        'parts' => [['text' => self::getSystemPrompt()]],
+                    ],
+                    'contents' => [
+                        [
+                            'role' => 'user',
+                            'parts' => [['text' => $cleanText]],
+                        ],
+                    ],
+                ]);
+
+                if ($response->failed()) {
+                    throw new Exception($response->body());
+                }
+
+                $geminiData = $response->json();
+                $generatedText = $geminiData['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
+                return [
+                    'choices' => [
+                        [
+                            'message' => [
+                                'content' => $generatedText,
+                            ],
+                        ],
+                    ],
+                ];
+            }
+
+            // 2. Native Anthropic Claude (if key starts with sk-ant-...)
+            if (str_starts_with($apiKey, 'sk-ant-')) {
+                $claudeModel = str_replace('anthropic/', '', $model);
+                $response = \Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => $apiKey,
+                    'anthropic-version' => '2023-06-01',
+                ])->post('https://api.anthropic.com/v1/messages', [
+                    'model' => $claudeModel,
+                    'max_tokens' => 4096,
+                    'system' => self::getSystemPrompt(),
+                    'messages' => [
+                        [
+                            'role' => 'user',
+                            'content' => $cleanText,
+                        ],
+                    ],
+                ]);
+
+                if ($response->failed()) {
+                    throw new Exception($response->body());
+                }
+
+                $claudeData = $response->json();
+                $generatedText = $claudeData['content'][0]['text'] ?? '';
+
+                return [
+                    'choices' => [
+                        [
+                            'message' => [
+                                'content' => $generatedText,
+                            ],
+                        ],
+                    ],
+                ];
+            }
+
+            // 3. Native OpenAI (if key starts with sk-proj- or starts with sk- and NOT sk-or-)
+            if (str_starts_with($apiKey, 'sk-proj-') || (str_starts_with($apiKey, 'sk-') && ! str_starts_with($apiKey, 'sk-or-'))) {
+                $openaiModel = str_replace('openai/', '', $model);
+                $response = \Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer '.$apiKey,
+                ])->post('https://api.openai.com/v1/chat/completions', [
+                    'model' => $openaiModel,
+                    'messages' => [
+                        [
+                            'role' => 'system',
+                            'content' => self::getSystemPrompt(),
+                        ],
+                        [
+                            'role' => 'user',
+                            'content' => $cleanText,
+                        ],
+                    ],
+                ]);
+
+                if ($response->failed()) {
+                    throw new Exception($response->body());
+                }
+
+                return $response->json();
+            }
+
+            // 4. Default / OpenRouter (works with OpenRouter sk-or-... keys and universal models)
+            $response = \Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Authorization' => 'Bearer '.$apiKey,
+                'HTTP-Referer' => config('app.url', 'https://nexora.io'),
+                'X-Title' => 'Nexora CRM',
+            ])->post(self::OPEN_ROUTER_URL, [
                 'model' => $model,
                 'messages' => [
                     [
                         'role' => 'system',
                         'content' => self::getSystemPrompt(),
-                    ], [
+                    ],
+                    [
                         'role' => 'user',
-                        'content' => [
-                            [
-                                'type' => 'text',
-                                'text' => $prompt[0],
-                            ],
-                        ],
+                        'content' => $cleanText,
                     ],
                 ],
-            ];
-
-            // Request json format for supported models
-            if (! str_contains($model, 'claude') && ! str_contains($model, 'anthropic')) {
-                $payload['response_format'] = ['type' => 'json_object'];
-            }
-
-            $response = \Http::withHeaders([
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer '.$apiKey,
-            ])->post(self::OPEN_ROUTER_URL, $payload);
+            ]);
 
             if ($response->failed()) {
                 throw new Exception($response->body());

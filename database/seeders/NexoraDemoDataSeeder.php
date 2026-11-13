@@ -862,6 +862,20 @@ class NexoraDemoDataSeeder extends Seeder
             $activity = Activity::firstOrCreate(['title' => $actData['title']], $actData);
             $activity->leads()->syncWithoutDetaching([$leadId]);
             $activity->participants()->firstOrCreate(['user_id' => $user->id]);
+
+            $lead = Lead::find($leadId);
+            if ($lead && $lead->person_id) {
+                $activity->persons()->syncWithoutDetaching([$lead->person_id]);
+            }
+        }
+
+        // Ensure all leads' activities are also linked to their contact persons
+        foreach (Lead::with('activities')->get() as $l) {
+            if ($l->person_id) {
+                foreach ($l->activities as $act) {
+                    $act->persons()->syncWithoutDetaching([$l->person_id]);
+                }
+            }
         }
 
         // 7. Seed Commercial Quotations with Line Items
@@ -1001,5 +1015,338 @@ class NexoraDemoDataSeeder extends Seeder
             'tax_amount' => 0,
             'total' => 5500.00,
         ]);
+
+        // Quote 3: CloudScale Technologies (Marcus Brody)
+        $quote3 = Quote::updateOrCreate([
+            'subject' => 'Multi-Cloud CRM Architecture & Telemetry - CloudScale Technologies',
+        ], [
+            'description' => 'Comprehensive multi-cloud deployment with real-time analytics and data retention pipelines.',
+            'billing_address' => [
+                'address' => '701 Brazos Street, Suite 500',
+                'city' => 'Austin',
+                'state' => 'TX',
+                'country' => 'US',
+                'postcode' => '78701',
+            ],
+            'shipping_address' => [
+                'address' => '701 Brazos Street, Suite 500',
+                'city' => 'Austin',
+                'state' => 'TX',
+                'country' => 'US',
+                'postcode' => '78701',
+            ],
+            'discount_percent' => 10,
+            'discount_amount' => 4200.00,
+            'tax_amount' => 0,
+            'adjustment_amount' => 0,
+            'sub_total' => 42000.00,
+            'grand_total' => 37800.00,
+            'expired_at' => Carbon::now()->addDays(25),
+            'user_id' => $user->id,
+            'person_id' => $persons['Marcus Brody']->id,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote3->id,
+            'product_id' => $products['NX-ENT-CORE']->id,
+        ], [
+            'sku' => 'NX-ENT-CORE',
+            'name' => 'Nexora Enterprise Platform Core (Annual)',
+            'quantity' => 2,
+            'price' => 12000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 24000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote3->id,
+            'product_id' => $products['NX-AI-COPILOT']->id,
+        ], [
+            'sku' => 'NX-AI-COPILOT',
+            'name' => 'Nexora Autonomous AI Sales Copilot Add-on',
+            'quantity' => 3,
+            'price' => 6000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 18000.00,
+        ]);
+
+        // Quote 4: Lumina Financial Systems (Sarah Jenkins)
+        $quote4 = Quote::updateOrCreate([
+            'subject' => 'Institutional FinTech CRM & Compliance Infrastructure - Lumina Financial',
+        ], [
+            'description' => 'Dedicated financial compliance audit suite, encrypted document vault, and customer portal integration.',
+            'billing_address' => [
+                'address' => '200 West Street, 28th Floor',
+                'city' => 'New York',
+                'state' => 'NY',
+                'country' => 'US',
+                'postcode' => '10282',
+            ],
+            'shipping_address' => [
+                'address' => '200 West Street, 28th Floor',
+                'city' => 'New York',
+                'state' => 'NY',
+                'country' => 'US',
+                'postcode' => '10282',
+            ],
+            'discount_percent' => 0,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'adjustment_amount' => 0,
+            'sub_total' => 58500.00,
+            'grand_total' => 58500.00,
+            'expired_at' => Carbon::now()->addDays(30),
+            'user_id' => $user->id,
+            'person_id' => $persons['Sarah Jenkins']->id,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote4->id,
+            'product_id' => $products['NX-ENT-CORE']->id,
+        ], [
+            'sku' => 'NX-ENT-CORE',
+            'name' => 'Nexora Enterprise Platform Core (Annual)',
+            'quantity' => 3,
+            'price' => 12000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 36000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote4->id,
+            'product_id' => $products['NX-SEC-AUDIT']->id,
+        ], [
+            'sku' => 'NX-SEC-AUDIT',
+            'name' => 'Enterprise Security & Audit Trail Pack',
+            'quantity' => 5,
+            'price' => 4500.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 22500.00,
+        ]);
+
+        // Quote 5: BioSphere Healthcare Logistics (Dr. Aris Thorne)
+        $quote5 = Quote::updateOrCreate([
+            'subject' => 'HIPAA Cold-Chain CRM & Telemetry Suite - BioSphere Healthcare',
+        ], [
+            'description' => 'Cold-chain shipment telemetry, real-time alert dispatch, and multi-tenant clinical account hierarchy.',
+            'billing_address' => [
+                'address' => '400 Technology Square, Suite 800',
+                'city' => 'Cambridge',
+                'state' => 'MA',
+                'country' => 'US',
+                'postcode' => '02139',
+            ],
+            'shipping_address' => [
+                'address' => '400 Technology Square, Suite 800',
+                'city' => 'Cambridge',
+                'state' => 'MA',
+                'country' => 'US',
+                'postcode' => '02139',
+            ],
+            'discount_percent' => 5,
+            'discount_amount' => 3200.00,
+            'tax_amount' => 0,
+            'adjustment_amount' => 0,
+            'sub_total' => 64000.00,
+            'grand_total' => 60800.00,
+            'expired_at' => Carbon::now()->addDays(18),
+            'user_id' => $user->id,
+            'person_id' => $persons['Dr. Aris Thorne']->id,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote5->id,
+            'product_id' => $products['NX-ENT-CORE']->id,
+        ], [
+            'sku' => 'NX-ENT-CORE',
+            'name' => 'Nexora Enterprise Platform Core (Annual)',
+            'quantity' => 4,
+            'price' => 12000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 48000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote5->id,
+            'product_id' => $products['NX-DR-FAILOVER']->id,
+        ], [
+            'sku' => 'NX-DR-FAILOVER',
+            'name' => 'Multi-Region High Availability & Failover Module',
+            'quantity' => 2,
+            'price' => 5500.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 11000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote5->id,
+            'product_id' => $products['NX-INT-HUB']->id,
+        ], [
+            'sku' => 'NX-INT-HUB',
+            'name' => 'Custom Webhook & OpenAPI Gateway License',
+            'quantity' => 1,
+            'price' => 5000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 5000.00,
+        ]);
+
+        // Quote 6: Quantum Robotics Corp (Elena Rostova)
+        $quote6 = Quote::updateOrCreate([
+            'subject' => 'Robotics Industrial Sales Automation - Quantum Robotics',
+        ], [
+            'description' => 'Automated CPQ engine, multi-currency price books, and industrial partner channel integration.',
+            'billing_address' => [
+                'address' => '2201 6th Avenue',
+                'city' => 'Seattle',
+                'state' => 'WA',
+                'country' => 'US',
+                'postcode' => '98121',
+            ],
+            'shipping_address' => [
+                'address' => '2201 6th Avenue',
+                'city' => 'Seattle',
+                'state' => 'WA',
+                'country' => 'US',
+                'postcode' => '98121',
+            ],
+            'discount_percent' => 0,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'adjustment_amount' => 0,
+            'sub_total' => 38000.00,
+            'grand_total' => 38000.00,
+            'expired_at' => Carbon::now()->addDays(22),
+            'user_id' => $user->id,
+            'person_id' => $persons['Elena Rostova']->id,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote6->id,
+            'product_id' => $products['NX-ENT-CORE']->id,
+        ], [
+            'sku' => 'NX-ENT-CORE',
+            'name' => 'Nexora Enterprise Platform Core (Annual)',
+            'quantity' => 2,
+            'price' => 12000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 24000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote6->id,
+            'product_id' => $products['NX-AI-COPILOT']->id,
+        ], [
+            'sku' => 'NX-AI-COPILOT',
+            'name' => 'Nexora Autonomous AI Sales Copilot Add-on',
+            'quantity' => 1,
+            'price' => 6000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 6000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote6->id,
+            'product_id' => $products['NX-WFL-AUTO']->id,
+        ], [
+            'sku' => 'NX-WFL-AUTO',
+            'name' => 'Visual Workflow Automation Engine Pack',
+            'quantity' => 2,
+            'price' => 4000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 8000.00,
+        ]);
+
+        // Quote 7: Hyperion AI Labs (Dr. Vikram Patel)
+        $quote7 = Quote::updateOrCreate([
+            'subject' => 'Enterprise AI Copilot Platform & Live Pipeline Engine - Hyperion AI',
+        ], [
+            'description' => 'Frontier LLM integrations, predictive deal scoring, and automated meeting action-item extractors.',
+            'billing_address' => [
+                'address' => '3000 Sand Hill Road, Building 4',
+                'city' => 'Menlo Park',
+                'state' => 'CA',
+                'country' => 'US',
+                'postcode' => '94025',
+            ],
+            'shipping_address' => [
+                'address' => '3000 Sand Hill Road, Building 4',
+                'city' => 'Menlo Park',
+                'state' => 'CA',
+                'country' => 'US',
+                'postcode' => '94025',
+            ],
+            'discount_percent' => 5,
+            'discount_amount' => 4250.00,
+            'tax_amount' => 0,
+            'adjustment_amount' => 0,
+            'sub_total' => 85000.00,
+            'grand_total' => 80750.00,
+            'expired_at' => Carbon::now()->addDays(14),
+            'user_id' => $user->id,
+            'person_id' => $persons['Dr. Vikram Patel']->id,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote7->id,
+            'product_id' => $products['NX-ENT-CORE']->id,
+        ], [
+            'sku' => 'NX-ENT-CORE',
+            'name' => 'Nexora Enterprise Platform Core (Annual)',
+            'quantity' => 5,
+            'price' => 12000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 60000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote7->id,
+            'product_id' => $products['NX-AI-COPILOT']->id,
+        ], [
+            'sku' => 'NX-AI-COPILOT',
+            'name' => 'Nexora Autonomous AI Sales Copilot Add-on',
+            'quantity' => 3,
+            'price' => 6000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 18000.00,
+        ]);
+
+        QuoteItem::updateOrCreate([
+            'quote_id' => $quote7->id,
+            'product_id' => $products['NX-INT-HUB']->id,
+        ], [
+            'sku' => 'NX-INT-HUB',
+            'name' => 'Custom Webhook & OpenAPI Gateway License',
+            'quantity' => 1,
+            'price' => 7000.00,
+            'discount_amount' => 0,
+            'tax_amount' => 0,
+            'total' => 7000.00,
+        ]);
+
+        // Enrich any older/unpopulated demo persons so every contact view in the CRM is complete
+        $firstOrg = Organization::first();
+        Person::whereNull('job_title')->orWhere('job_title', '')->get()->each(function ($p, $idx) use ($firstOrg) {
+            $titles = ['Senior Sales Director', 'VP of Engineering', 'Principal Solutions Architect', 'Chief Information Officer'];
+            $p->job_title = $titles[$idx % count($titles)];
+            if (! $p->organization_id && $firstOrg) {
+                $p->organization_id = $firstOrg->id;
+            }
+            if (empty($p->contact_numbers)) {
+                $p->contact_numbers = [['value' => '+1 (555) 010-'.(2000 + $p->id), 'label' => 'work']];
+            }
+            $p->save();
+        });
     }
 }
