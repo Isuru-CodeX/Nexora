@@ -1115,6 +1115,106 @@ html.dark table tbody tr:hover {
     transform: translateX(-2px);
 }
 
+/* Auth Portal Animations & Polish */
+@keyframes nexoraFloatSlow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes nexoraFloatSlowReverse {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(8px);
+    }
+}
+
+@keyframes nexoraPulseDot {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+@keyframes nexoraOrbitSpin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes nexoraOrbitSpinReverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+.nexora-float-card {
+    animation: nexoraFloatSlow 5.5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.nexora-float-card-delayed {
+    animation: nexoraFloatSlowReverse 6.5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.nexora-pulse-dot {
+    animation: nexoraPulseDot 2.2s ease-in-out infinite;
+}
+
+.nexora-orbit-cw {
+    animation: nexoraOrbitSpin 20s linear infinite;
+    transform-origin: center;
+}
+
+.nexora-orbit-ccw {
+    animation: nexoraOrbitSpinReverse 15s linear infinite;
+    transform-origin: center;
+}
+
+.nexora-glass-card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.85);
+    box-shadow: 0 25px 50px -12px rgba(90, 77, 185, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+html.dark .nexora-glass-card {
+    background: rgba(11, 17, 32, 0.90);
+    border: 1px solid rgba(30, 41, 59, 0.85);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(1, 199, 244, 0.12);
+}
+
+.nexora-showcase-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.85) 0%, rgba(243, 244, 246, 0.75) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    box-shadow: 0 30px 60px -15px rgba(90, 77, 185, 0.15);
+}
+
+html.dark .nexora-showcase-card {
+    background: linear-gradient(145deg, rgba(13, 20, 36, 0.88) 0%, rgba(8, 12, 24, 0.94) 100%);
+    border: 1px solid rgba(30, 41, 59, 0.85);
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .nexora-animate-in,
     .nexora-scale-in,
@@ -1125,6 +1225,11 @@ html.dark table tbody tr:hover {
     .nexora-preloader-bar,
     .nexora-spin-ring,
     .nexora-pulse-glow,
+    .nexora-float-card,
+    .nexora-float-card-delayed,
+    .nexora-pulse-dot,
+    .nexora-orbit-cw,
+    .nexora-orbit-ccw,
     #nexora-top-loader {
         animation: none !important;
     }
